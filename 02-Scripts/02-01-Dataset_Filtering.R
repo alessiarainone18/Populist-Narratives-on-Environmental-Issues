@@ -2,6 +2,7 @@
 library(tidyverse)
 library(quanteda)
 library (openxlsx)
+library(naivebayes)
 
 # Set up WD
 setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/01-Data")
@@ -134,36 +135,54 @@ filtered_data %>%
 # Still 9291 articles (too many)
 
 # Exclude local politics
-local_terms <- c("Gemeinderat", "Stadtrat", "Ortsparlament", "Quartierverein",
-                 "Gemeindeversammlung", "Baukommission", "Ortsplanung")
-filtered_national <- filtered_data %>% filter(!grepl(paste(local_terms, collapse = "|"), content, ignore.case = TRUE))
+# local_terms <- c("Gemeinderat", "Stadtrat", "Ortsparlament", "Quartierverein",
+#                  "Gemeindeversammlung", "Baukommission", "Ortsplanung")
 
 # Filter general on polictis and Switzerland
-general_terms <- c("Partei", "politisch", "Politik", "Parlament", "Gesetz", "Bundesrat")
-swiss_terms <- c("Schweiz", "Schweizer", "eidgenössisch", "national", "kantonal", "Regierungsrat", "Grossrat", "Kantonsrat")
+political_terms <- c(
+  # Institutions
+  "Bundesrat", "Parlament", "Nationalrat", "Ständerat", "Kantonsrat", "Gemeinderat",
+  "Regierung", "Exekutive", "Legislative", "Judikative", "Volksabstimmung", "Referendum", "Initiative",
+  
+  # Political processes
+  "Koalition", "Mehrheit", "Opposition", "Fraktion", "Gesetzesvorschlag", "Abstimmung", "Wahlen",
+  "Kandidatur", "Stimmrecht", "Wahlkampf", "Volkswahl", "Listenverbindung", "Proporz", "Majorz",
+  
+  # Political Discourse
+  "Kommission", "Motion", "Postulat", "Interpellation", "Petition", "Vernehmlassung", "Parlamentsdebatte",
+  "Plenarsitzung", "Session", "Gesetzesentwurf", "Parlamentsbeschluss",
+  
+  # Political Roles
+  "Parteipräsident", "Abgeordneter", "Mandat", "Staatssekretär", "Regierungsrat", "Kantonsregierung",
+  "Bürgermeister", "Gemeindepräsident", "Landammann", "Oppositionsführer", "Stimmenzähler",
+  
+  # Political Topics
+  "Klimapolitik", "Umweltgesetz", "Energiegesetz", "Subvention", "Verfassungsänderung",
+  "Steuergesetz", "Verordnung", "Sozialpolitik", "Asylpolitik", "Wirtschaftspolitik")
+  
+# swiss_terms <- c("Schweiz", "Schweizer", "eidgenössisch", "national", "kantonal", "Regierungsrat", "Grossrat", "Kantonsrat")
 
-filtered_swiss <- filtered_national %>%
-  filter(grepl(paste(general_terms, collapse = "|"), content, ignore.case = TRUE)) %>%
-  filter(grepl(paste(swiss_terms, collapse = "|"), content, ignore.case = TRUE)) %>%
-  filter(rubric != "international", medium_code != "BAZ", medium_code != "NNBE")
+filtered_pol <- filtered_data %>%
+  filter(grepl(paste(political_terms, collapse = "|"), content, ignore.case = TRUE)) %>%
+  # filter(grepl(paste(swiss_terms, collapse = "|"), content, ignore.case = TRUE)) %>%
+  filter(rubric != c("international", "Ausland"), medium_code != "BAZ", medium_code != "NNBE")
 
-filtered_swiss %>%
+filtered_pol %>%
   count(predicted_relevance)
 
 # Check on random sample
-check_sample <- sample_n(filtered_swiss, 100)
+check_sample <- sample_n(filtered_pol, 100)
 check_sample %>%
   count(predicted_relevance)
 
 table_result <- table(check_sample$head, check_sample$predicted_relevance)
 table_result
 
-
 # Plot Swiss reports per year and medium
-grouped_by_medium_swiss <- filtered_swiss %>% group_by(year, medium_code) %>% summarize(n = n())
-medium_labels_swiss <- medium_labels[c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO")]
+grouped_by_medium <- filtered_pol %>% group_by(year, medium_code) %>% summarize(n = n())
+medium_labels <- medium_labels[c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO")]
 
-ggplot(grouped_by_medium_swiss, aes(x = year, y = n, color = medium_code, group = medium_code)) +
+ggplot(grouped_by_medium, aes(x = year, y = n, color = medium_code, group = medium_code)) +
   geom_line() +
   labs(title = "Climate Change Reports in Swiss Politics", x = "Year", y = "Number of Records") +
   scale_x_continuous(breaks = 2014:2024) +
@@ -171,11 +190,11 @@ ggplot(grouped_by_medium_swiss, aes(x = year, y = n, color = medium_code, group 
   theme_minimal()
 
 cat("Number of filtered articles:", nrow(filtered_swiss), "\n")
-print(filtered_swiss %>% summarise(wordcount_mean = mean(wordcount)))
+print(filtered_pol %>% summarise(wordcount_mean = mean(wordcount)))
 
 # Tokenization and stopword removal, as lots of unnecessary tokens
 # which will make analysis by API more expensive
-myCorpus <- corpus(filtered_swiss$content)
+myCorpus <- corpus(filtered_pol$text)
 strwrap(as.character(myCorpus)[1])
 
 tok_clean <- tokens(myCorpus, 
@@ -188,5 +207,4 @@ word_counts <- sapply(tok_clean, function(x) str_count(paste(x, collapse = " "),
 mean_tok <- mean(word_counts, na.rm = TRUE)
 mean_tok 
 
-## TOTAL OF TOKENS: 3'400'000
-## TOTAL OF TOKENS AFTER ML APPROACH: 2'616'600
+## TOTAL OF TOKENS: 3'180'000
