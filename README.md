@@ -7,7 +7,7 @@
 *LUMACSS: Data Mining Capstone Project*
 
 ## Research Question
-How has the discourse on green parties and climate change in Swiss mainstream media evolved over the past decade?
+How has the discourse on green parties in the context of climate change in Swiss mainstream media evolved over the past decade?
 
 ## Data
 Media articles on green parties and climate change in the German part of Switzerland during the past 10 years.
