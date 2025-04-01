@@ -22,14 +22,14 @@ If both parties, the SVP (`1`) and the Green party (`2`), are mentioned please p
 ---
 
 ## TASK 3: Pro or Contra
-Please evaluate if the party's stance is pro or contra the discussed policy.
-  - `1` = Pro 
-  - `2` = Contra
+Evaluate whether the party's stance on the discussed environmental policy is supportive or opposed.
+  - `1` = Support 
+  - `2` = Oppose
   - `99` = Unclear / not applicable 
 
 ## TASK 4: Populist vs. Pluralistic Framing
-If TASK 2 classified the article into a specific party (`1` or `2`), evaluate how the political party frames its policy stance on the environmental issue in the article.
-Assign a code to the variable `"discourse"` based on how party uses political discourse:  
+If TASK 2 classified the article under a specific party (1 or 2), assess how the party frames its stance on the environmental issue in the article.
+Assign a code to the variable "discourse" based on the political discourse used:
   - `1` = Very pluralistic (diverse viewpoints, cooperative tone, evidence-based)  
   - `2` = Rather pluralistic 
   - `3` = Neutral
@@ -66,4 +66,5 @@ Assign a category for the variable `"people"` based on how the article defines o
 For each task just return the numeric code of the chosen category.
 
 
-(put examples under each task)
+# To do
+- Examples
