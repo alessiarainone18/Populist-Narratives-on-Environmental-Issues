@@ -122,12 +122,12 @@ print(status_json)
 
 
 #Download of the retrieved dataset----------------------------------------------
-download_url <- "https://swissdox.linguistik.uzh.ch/api/download/20079960-da17-41ee-b196-f6e6e4e4b620__2025_03_26T10_53_49.tsv.xz"
+download_url <- "https://swissdox.linguistik.uzh.ch/api/download/83d1c6b0-fccf-4ec4-ba13-6fb2a514e66b__2025_04_01T13_29_37.tsv.xz"
 download_response <- GET(download_url, headers)
 
 if (status_code(download_response) == 200) {
-  writeBin(content(download_response, "raw"), "dataset_climate.tsv.xz")
-  cat("Download complete. File saved as dataset_climate.tsv.xz\n")
+  writeBin(content(download_response, "raw"), "dataset_environmentalpolitics.tsv.xz")
+  cat("Download complete. File saved as dataset_environmentalpolitics.tsv.xz\n")
 } else {
   cat("Download failed:\n")
   print(content(download_response, "text"))
@@ -135,7 +135,7 @@ if (status_code(download_response) == 200) {
 
 
 #Unzip & load data -------------------------------------------------------------
-gunzip("dataset_climate.tsv.xz", destname = "dataset_climate.tsv", remove = FALSE)
-data <- read.delim("dataset_climate.tsv", sep = "\t", encoding = "UTF-8")
+gunzip("dataset_environmentalpolitics.tsv.xz", destname = "dataset_environmentalpolitics.tsv", remove = FALSE)
+data <- read.delim("dataset_environmentalpolitics.tsv", sep = "\t", encoding = "UTF-8")
 head(data)
 

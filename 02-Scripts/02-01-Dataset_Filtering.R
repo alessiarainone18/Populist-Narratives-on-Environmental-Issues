@@ -25,7 +25,7 @@ data$content <- as.character(data$content)
 filtered_data <- data %>% 
   filter(grepl(paste(party_keywords, collapse = "|"), content, ignore.case = TRUE)) %>%
   mutate(wordcount = str_count(content, "\\S+")) %>%
-  distinct(medium_code, content, .keep_all = TRUE)
+  distinct(medium_code, content, .keep_all = TRUE) %>%
   filter(wordcount >= 200 & wordcount <= 2000, year >= 2014)
 
 # Draw a random sample of 5000
@@ -65,4 +65,4 @@ word_counts <- sapply(tok_clean, function(x) str_count(paste(x, collapse = " "),
 mean_tok <- mean(word_counts, na.rm = TRUE)
 mean_tok 
 
-## TOTAL OF TOKENS: 2'800'000
+## TOTAL OF TOKENS: 2'550'000
