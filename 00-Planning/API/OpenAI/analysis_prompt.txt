@@ -9,48 +9,33 @@ Determine whether the article discusses environmental politics. Assign the follo
   - `0` = The article does not discuss environmental politics.  
   - `1` = The article does discuss environmental politics.  
 
-If `"relevance" = 0`, assign `"party" = 99` and `"discourse" = 99`, then proceed to the next article.  
-
 ---
 
 ## TASK 2: Political Party Mentioned 
 If the article was coded as `1` in TASK 1, identify which political party is mentioned. Assign one of the following codes to the variable `"party"`:  
   - `1` = SVP  
-  - `2` = SP  
-  - `3` = FDP  
-  - `4` = Die Mitte  
-  - `5` = GPS (Grüne Partei der Schweiz)  
-  - `6` = EVP  
-  - `7` = Lega  
-  - `8` = CSP  
-  - `9` = GLP  
-  - `10` = BDP  
-  - `11` = Alternative Linke / Alternative Liste / Partei der Arbeit / solidaritéS  
-  - `12` = EDU  
-  - `13` = Piratenpartei  
-  - `14` = MCR  
-  - `97` = Other party  
-  - `98` = Multiple parties mentioned  
+  - `2` = GPS (Grüne Partei der Schweiz)  
+  - `97` = Both parties mentioned  
+  - `98` = Other parties mentioned
   - `99` = No party mentioned  
 
-If `"party" = 99`, assign `"discourse" = 99` and proceed to the next article.  
+If both parties are mentioned (`97`) please pick the pre-dominant one.
 
 ---
 
 ## TASK 3: Populist vs. Pluralistic Framing
-If TASK 2 classified the article into a specific party (`1-14`), evaluate the rhetorical style of the article. Assign a code to the variable `"discourse"` based on how the article presents political discourse:  
+If TASK 2 classified the article into a specific party (`1-14`), evaluate how the political party frames its policy stance on environmental stance ..of the article. Assign a code to the variable `"discourse"` based on how the article presents political discourse:  
   - `1` = Very pluralistic (diverse viewpoints, cooperative tone, evidence-based)  
-  - `2` = Rather pluralistic  
-  - `3` = Rather populistic (simplifies issues, contrasts "the people" vs. "the elite")  
-  - `4` = Very populistic (strong anti-elite rhetoric, emotional language, crisis framing)  
-  - `99` = Other (neutral, unclear, or not classifiable)  
-
-If `"discourse" = 99`, proceed to the next article.  
+  - `2` = Rather pluralistic 
+  - `3` = Neutral
+  - `4` = Rather populistic (simplifies issues, contrasts "the people" vs. "the elite")  
+  - `5` = Very populistic (strong anti-elite rhetoric, emotional language, crisis framing)  
+  - `99` = Unrelated content / not applicable
 
 ---
 
 ## TASK 4: Definitions of "People" and "Elite"
-If TASK 3 was coded as `3` or `4`, extract how the article defines "the people" and "the elite".  
+If TASK 3 was coded as `4` or `5`, extract how the article defines "the people" and "the elite".  
 
 Assign a category for the variable `"elite"` based on how the article describes the ruling class, establishment, or those in power. Examples include:  
   - `1` = Government / politicians  
@@ -59,7 +44,7 @@ Assign a category for the variable `"elite"` based on how the article describes 
   - `4` = Intellectuals / academics  
   - `5` = International organizations (EU, UN, etc.)  
   - `6` = Environmental activists / NGOs  
-  - `7` = Other (specify)  
+  - `99` = Other / not applicable
 
 Assign a category for the variable `"people"` based on how the article defines ordinary citizens. Examples include:  
   - `1` = The Swiss population in general  
@@ -68,23 +53,12 @@ Assign a category for the variable `"people"` based on how the article defines o
   - `4` = Traditional Swiss values group  
   - `5` = Small business owners / self-employed  
   - `6` = Farmers  
-  - `7` = Other (specify)  
-
-Whenever possible, provide direct text snippets from the article that illustrate these definitions.  
+  - `99` = Other / not applicable
 
 ---
 
 ## Output Format
-Return the classification results in structured JSON format as shown here:  
-```json
-{
-  "relevance": 1,
-  "party": 3,
-  "discourse": 4,
-  "elite": 1,
-  "people": 3,
-  "examples": {
-    "elite_snippet": "The government continues to impose regulations that hurt small businesses.",
-    "people_snippet": "Farmers are the backbone of our country and are being ignored by the elites."
-  }
-}
+For each task just return the numeric code of the chosen category.
+
+
+(put examples under each task)
