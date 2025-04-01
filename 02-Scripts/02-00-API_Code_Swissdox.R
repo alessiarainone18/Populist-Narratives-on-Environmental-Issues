@@ -4,6 +4,8 @@ library(httr)
 library(R.utils)
 library(tidyverse)
 
+setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/00-Planning/API/Swissdox")
+
 api_key <- readLines("api_key.txt")
 api_secret <- readLines("api_secret.txt") 
 
@@ -14,7 +16,7 @@ headers <- add_headers(
 
 API_URL_QUERY <- "https://swissdox.linguistik.uzh.ch/api/query"
 
-yaml_query_2 <- "
+yaml_query_3 <- "
 query:
     sources:
          - ZWAO
@@ -22,58 +24,54 @@ query:
          - NZZO
          - NNTA
          - BLIO
-         - TLM
-         - HEU
-         - NNBE
-         - BAZ
     dates:
         - from: 2009-01-01
           to: 2024-12-31
     languages:
         - de
-        - fr
-        - it
     content:
         AND:
             - OR:
-                - Klima
-                - Klimawandel
-                - Klimakrise
-                - Klimaschutz
-                - Klimaerwärmung
-                - Erderwärmung
-                - Klimapolitik
-                - Erderwärmung
-                - changement climatique
-                - réchauffement climatique
-                - protection du climat
-                - transition énergétique
-                - crise climatique
-                - émissions de gaz à effet de serre
-                - riscaldamento globale
-                - protezione del clima
-                - transizione energetica
-                - ondata di caldo
-                - siccità
-                - inondazioni
-                - fonte dei ghiacciai
-                - eventi meteorologici estremi
-                - Hitzewelle
-                - Dürren
-                - Überschwemmungen
-                - Gletscherschmelze
-                - Wetterextreme
-                - CO₂-Ausstoß
-                - CO₂-Steuer
-                - Emissionsreduktion
-                - neutralité carbone
-                - taxe carbone
-                - riduzione delle emissioni
-                - Swiss Climate Policy
-                - Grüne Partei Schweiz
-                - Klimastreik Schweiz
-                - BAFU
-                - OFEV
+              - Umwelt
+              - Umweltschutz
+              - Umweltpolitik
+              - Nachhaltigkeit
+              - Ökologie
+              - Umweltkatastrophe
+              - Ökosystem
+              - Naturzerstörung
+
+              - Klimawandel
+              - Klimakrise
+              - Klimaschutz
+              - Klimapolitik
+              - Globale Erwärmung
+              - CO2-Ausstoß
+              - Energiewende
+
+              - Luftverschmutzung
+              - Wasserverschmutzung
+              - Plastikmüll
+              - Mikroplastik
+              - Abholzung
+              - Bodenverschmutzung
+              - Müllproblematik
+              - Industrieverschmutzung
+
+              - Artensterben
+              - Biodiversität
+              - Naturschutz
+              - Regenwaldzerstörung
+              - Artenschutz
+
+              - Ökodiktatur
+              - Klimahysterie
+              - Umweltlüge
+              - Verbotspartei
+              - Grüne Bevormundung
+              - Umweltterrorismus
+              - Öko-Marxismus
+
 result:
     format: TSV
     maxResults: 500000
@@ -100,9 +98,9 @@ response <- POST(
   url = API_URL_QUERY,
   headers,
   body = list(
-    query = yaml_query_2,
-    name = "Query 2 Climate Change News", 
-    comment = "First data collection",
+    query = yaml_query_3,
+    name = "Query 3 Environmental Problems", 
+    comment = "Second data collection",
     expirationDate = "2025-12-31"
   ),
   encode = "form"
