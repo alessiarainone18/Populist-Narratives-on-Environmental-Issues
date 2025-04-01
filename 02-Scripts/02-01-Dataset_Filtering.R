@@ -1,50 +1,35 @@
 # Load packages
 library(tidyverse)
 library(quanteda)
-library (openxlsx)
-library(naivebayes)
 
 # Set up WD
 setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/01-Data")
 
 # Load data
-data <- read.delim("dataset_climate.tsv", sep = "\t", encoding = "UTF-8")
+data <- read.delim("dataset_environmentalpolitics.tsv", sep = "\t", encoding = "UTF-8")
 data <- data %>% mutate(year = year(as_datetime(pubtime)))
 
-# Filter German articles since there are to few french in the database
-data_de <- data %>% filter(language == "de") %>%
-  filter(medium_code %in%  c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO"))
+# # Filter German articles since there are to few french in the database
+# data_de <- data %>% filter(language == "de") %>%
+#   filter(medium_code %in%  c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO"))
 
 # Define keywords to detect green parties
 party_keywords <- c(
   # Grüne Parteien
-  "Grüne", "GPS", "Junge Grüne Schweiz", "Grünen", "Grünliberale", "GLP", 
-  "Grünliberale Partei", "Grüne Partei", 
+  "Grüne", "GPS", "Junge Grüne Schweiz", "Grünen", "Grüne Partei", 
   
   # Konservative Parteien
-  "Schweizerische Volkspartei", "SVP", "SVP Schweiz", "Schweizerische Volkspartei Schweiz", "Swiss People's Party",
+  "Schweizerische Volkspartei", "SVP", "SVP Schweiz", "Schweizerische Volkspartei Schweiz", "Swiss People's Party")
   
-  # Mitte-rechts Parteien
-  "Mitte", "FDP", "Freisinnige", "FDP.Die Liberalen", "Freisinnig-Demokratische Partei",
-  
-  # Sozialdemokratische Parteien
-  "SP", "Sozialdemokratische Partei", "Sozialistische Partei", "SP Schweiz",
-  
-  # Weitere relevante Parteien
-  "CVP", "Die Mitte", "Evangelische Volkspartei", "EVP", "Grüne Alternative", "GLA", "AL", "Alternative Linke",
-  
-  # Politische Gruppen
-  "Junge Mitte", "Junge SVP", "Junge FDP", "Junge Grüne", "Junge SP", "Junge Alternative"
-)
-
-data_de$content <- as.character(data_de$content)
-filtered_data <- data_de %>% 
+data$content <- as.character(data$content)
+filtered_data <- data %>% 
   filter(grepl(paste(party_keywords, collapse = "|"), content, ignore.case = TRUE)) %>%
   mutate(wordcount = str_count(content, "\\S+")) %>%
   distinct(medium_code, content, .keep_all = TRUE)
-  # filter(wordcount >= 200 & wordcount <= 2000, year >= 2014)
+  filter(wordcount >= 200 & wordcount <= 2000, year >= 2014)
 
 # Draw a random sample of 5000
+set.seed(123)
 random_sample <- sample_n(filtered_data, 5000)
 
 # Plot Swiss reports per year and medium---
@@ -55,7 +40,7 @@ medium_labels <- c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO")
 
 ggplot(grouped_by_medium, aes(x = year, y = n, color = medium_code, group = medium_code)) +
   geom_line() + 
-  labs(title = "Climate Change Reports in Swiss Politics", 
+  labs(title = "Reports on SVP and Greens on environmental issues in Swiss Politics", 
        x = "Year", y = "Number of Records") +
   scale_x_continuous(breaks = 2009:2024) +  # Festlegen der x-Achsen-Beschriftungen
   scale_color_manual(values = c("blue", "green", "red", "purple", "orange"), 
