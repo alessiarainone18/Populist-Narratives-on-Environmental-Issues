@@ -1,4 +1,4 @@
-# Framing Climate Discourse: How Swiss Media Portray Green Parties Over the Last Decade
+# Populist Narratives on Environmental Issues in the Media: A Discourse Analysis
 
 *Spring semester 2025*
 
@@ -7,10 +7,10 @@
 *LUMACSS: Data Mining Capstone Project*
 
 ## Research Question
-How has the discourse on green parties in the context of climate change in Swiss mainstream media evolved over the past decade?
+How do the Swiss People's Party (SVP) and the Green Party present themselves in populist discourses on environmental issues, and how do their narratives differ?
 
 ## Data
-Media articles on green parties and climate change in the German part of Switzerland during the past 10 years.
+Media articles on green party & SVP about environmental issues in the German part of Switzerland during the past 10 years.
 
 ## Methods
 - Data access through Swissdox API
