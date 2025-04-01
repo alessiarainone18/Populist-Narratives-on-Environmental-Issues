@@ -15,16 +15,21 @@ Determine whether the article discusses environmental politics. Assign the follo
 If the article was coded as `1` in TASK 1, identify which political party is mentioned. Assign one of the following codes to the variable `"party"`:  
   - `1` = SVP  
   - `2` = GPS (Grüne Partei der Schweiz)  
-  - `97` = Both parties mentioned  
-  - `98` = Other parties mentioned
-  - `99` = No party mentioned  
+  - `99` = No or other party mentioned  / not applicable
 
-If both parties are mentioned (`97`) please pick the pre-dominant one.
+If both parties, the SVP (`1`) and the Green party (`2`), are mentioned please pick the pre-dominant one and use the provided code. 
 
 ---
 
-## TASK 3: Populist vs. Pluralistic Framing
-If TASK 2 classified the article into a specific party (`1-14`), evaluate how the political party frames its policy stance on environmental stance ..of the article. Assign a code to the variable `"discourse"` based on how the article presents political discourse:  
+## TASK 3: Pro or Contra
+Please evaluate if the party's stance is pro or contra the discussed policy.
+  - `1` = Pro 
+  - `2` = Contra
+  - `99` = Unclear / not applicable 
+
+## TASK 4: Populist vs. Pluralistic Framing
+If TASK 2 classified the article into a specific party (`1` or `2`), evaluate how the political party frames its policy stance on the environmental issue in the article.
+Assign a code to the variable `"discourse"` based on how party uses political discourse:  
   - `1` = Very pluralistic (diverse viewpoints, cooperative tone, evidence-based)  
   - `2` = Rather pluralistic 
   - `3` = Neutral
