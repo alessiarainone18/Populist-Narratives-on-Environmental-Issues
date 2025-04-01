@@ -37,7 +37,6 @@ party_keywords <- c(
   "Junge Mitte", "Junge SVP", "Junge FDP", "Junge Grüne", "Junge SP", "Junge Alternative"
 )
 
-
 data_de$content <- as.character(data_de$content)
 filtered_data <- data_de %>% 
   filter(grepl(paste(party_keywords, collapse = "|"), content, ignore.case = TRUE)) %>%
@@ -48,17 +47,12 @@ filtered_data <- data_de %>%
 # Draw a random sample of 5000
 random_sample <- sample_n(filtered_data, 5000)
 
-
-# Plot Swiss reports per year and medium----
-
+# Plot Swiss reports per year and medium---
 grouped_by_medium <- random_sample %>%
   group_by(year, medium_code) %>% 
   summarise(n = n(), .groups = "drop")
-
-# Medium Labels (die Legendenbezeichner)
 medium_labels <- c("ZWAO", "NZZO", "NNTA", "SRF", "BLIO")
 
-# Erstellen des Plots
 ggplot(grouped_by_medium, aes(x = year, y = n, color = medium_code, group = medium_code)) +
   geom_line() + 
   labs(title = "Climate Change Reports in Swiss Politics", 
@@ -66,7 +60,7 @@ ggplot(grouped_by_medium, aes(x = year, y = n, color = medium_code, group = medi
   scale_x_continuous(breaks = 2009:2024) +  # Festlegen der x-Achsen-Beschriftungen
   scale_color_manual(values = c("blue", "green", "red", "purple", "orange"), 
                      labels = medium_labels) +  # Farbliche Zuweisung und Labels
-  theme_minimal()  # Minimalistisches Design
+  theme_minimal()  
 
 print(random_sample %>%
         summarise(wordcount_mean = mean(wordcount)))
