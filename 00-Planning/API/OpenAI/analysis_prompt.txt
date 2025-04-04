@@ -36,7 +36,7 @@ und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unters
 --> "4"
 ---
 
-## TASK 3: Pro or Contra
+## TASK 3: Support or Oppositon
 Evaluate whether the party's stance on the discussed environmental policy is supportive or opposed.
   - `1` = Support 
   - `2` = Oppose
@@ -70,7 +70,7 @@ vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung 
 stärken, statt sie mit neuen Regeln zu belasten." --> "5 - very populistic"
 ---
 
-## TASK 4: Definitions of "People" and "Elite"
+## TASK 5: Definitions of "People" and "Elite"
 # First part
 If TASK 3 was coded as `4` or `5`, extract how the party defines "the people" and "the elite". If there are 
 several "elite" mentionings, please use the pre-dominant one.
@@ -107,12 +107,12 @@ die Taktik zu ändern?" --> "99"
 # Example 2: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht
 vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
 stärken, statt sie mit neuen Regeln zu belasten." --> "6" 
-
+# Example 3: "In der offiziellen Abstimmungskampagne fährt die SVP eine andere Linie. Dort wird der Klimawandel, um den es eigentlich geht,
+weitgehend ausgeblendet. Dafür fokussiert die Volkspartei auf die ihrer Meinung nach negativen Seiten des Gesetzes."
+--> "1" because it is generally about "protecting" the populiation from the negative consequences of the law
 ---
 
 ## Output Format
 For each task just return the numeric code of the chosen category.
 
 
-# To do
-- Examples
