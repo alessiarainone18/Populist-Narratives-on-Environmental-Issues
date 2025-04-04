@@ -23,9 +23,9 @@ Research-Oriented (possible expansion to seminar paper / master's thesis)
 
 ## 3. Project Overview (150-200 words)
 
-The goal of this project is to analyze media discourse on parties in Switzerland over the past ten years, with a particular focus on environmental topics. In a recent seminar paper, I investigated the relationship between climate awareness and populist attitudes, examining why right-wing populist attitudes often correlate with higher levels of climate skepticism. However, as theory suggests a significant difference between left- and right-wing populism, I also found that left-wing populist attitudes do not exhibit the same critical stance toward climate change. Instead, left-wing populism clearly tends to support climate policies.
+The goal of this project is to analyze media discourse on parties in Switzerland over the past ten years, with a particular focus on environmental topics. In a recent seminar paper, I investigated the relationship between climate awareness and populist attitudes, examining why right-wing populist attitudes correlate with higher levels of climate skepticism. However, as theory suggests a significant difference between left- and right-wing populism, I also found that left-wing populist attitudes do not exhibit the same critical stance toward climate change. Instead, left-wing populism clearly tends to support climate policies because , in contrast to right-wing populism, "the elite" and "the people" are defined differently.
 
-Building on these findings, this project will now conduct a **media analysis of populist discourses in Swiss media**, examining how different political parties frame and engage in populist rhetoric concerning environmental issues.
+Building on these findings, this project will now conduct a **media analysis of populist discourses in Swiss media**, examining in what way different political parties frame and engage in populist rhetoric concerning environmental issues.
 
 ### Research Question
 
@@ -61,37 +61,62 @@ Media articles of the past 10 years of mainstream media outlets in the German pa
     -   Categories (suggestion made by ChatGPT 4.0):
         -   <div>
 
-            1.  Not or Minimally Climate-Related
+            1.  **Relevance**
 
-                *Articles with little to no connection to climate issues or green parties.*
+                *Relevant (1) are articles with connection to Swiss environmental politics*
 
-            2.  Climate Politics & Green Parties
+            2.  **Political Party Mentioned**
 
-                *Coverage of political actions, policies, and debates related to climate change, specifically involving green parties.*
+                -   *1 = SVP (Schweizerische Volkspartei)*
 
-            3.  Climate Activism & Green Parties
+                -   *2 = JSVP (Junge Schweizerische Volkspartei)*
 
-                -   Positive (*e.g., Green parties supporting scientific climate activism, successful protest movements*)
+                -   *3 = GPS (Grüne Partei der Schweiz)*
 
-                -   Negative *(e.g., Green parties criticized for supporting controversial activism, such as road blockades)*
+                -   *4 = Junge Grüne Schweiz*
 
-            4.  Climate Science & Green Parties
+                -   *99 = No or other party mentioned / not applicable*
 
-                *Discussion of climate science in connection with green parties (e.g., how they use scientific arguments in political discourse).*
+            3.  **Support or Oppositon**
 
-            5.  Public Opinion on Climate Science & Green Parties
+                *Whether the party's stance on the discussed environmental policy is supportive or opposed.*
 
-                *Polls, opinion pieces, and discourse about how the public perceives climate science and how this affects support for green parties.*
+                -   *1 = Support*
 
-            6.  Media Representation of Green Parties
+                -   *2 = Oppose*
 
-                -   Positive (e.g., electoral success, policy achievements, strong leadership on climate issues)
+                -   *99 = Unclear / not applicableClimate Science & Green Parties*
 
-                -   Negative (e.g., electoral losses, criticism of policies, internal conflicts)
+            4.  **Populist vs. Pluralistic Framing**
 
-            7.  Populist Climate Discourse & Green Parties (Optional for Further Research)
+                -   *1 = Very pluralistic (diverse viewpoints, cooperative tone, evidence-based)*
+                -   *2 = Rather pluralistic*
+                -   *3 = Neutral*
+                -   *4 = Rather populistic (simplifies issues, contrasts "the people" vs. "the elite")*
+                -   `5` = Very populistic (strong anti-elite rhetoric, emotional language, crisis framing)
+                -   `99` = Unrelated content / not applicable
 
-                *How green parties are framed in populist discourse (e.g., portrayed as "climate alarmists" or as an "elitist movement").*
+            5.  **Definitions of "People" and "Elite"**
+
+                -   Elite:
+
+                    -   *1 = Government / politicians*
+                    -   *2 = Corporations / business elites*
+                    -   *3 = Media / journalists*
+                    -   *4 = Intellectuals / academics*
+                    -   *5 = International organizations (EU, UN, etc.)*
+                    -   *6 = Environmental activists / NGOs*
+                    -   *99 = Other / not applicable*
+
+                -   "the people"
+
+                    -   *1 = The Swiss population in general*
+                    -   *2 = Workers / lower class*
+                    -   *3 = Rural communities*
+                    -   *4 = Traditional Swiss values group*
+                    -   *5 = Small business owners / self-employed*
+                    -   *6 = Farmers*
+                    -   *99 = Other / not applicable*
 
             </div>
 
@@ -113,14 +138,6 @@ Media articles of the past 10 years of mainstream media outlets in the German pa
 01-Data
 
 02-Scripts
-
-\- 00-functions
-
-\- 01-data-input
-
-\- 02-prep-data
-
-\- 03-analysis
 
 03-Output
 
