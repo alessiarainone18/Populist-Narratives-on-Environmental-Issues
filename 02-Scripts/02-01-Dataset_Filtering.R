@@ -32,6 +32,9 @@ filtered_data <- data %>%
 set.seed(123)
 random_sample <- sample_n(filtered_data, 5000)
 
+# Save sample
+write.csv(random_sample, "random_sample.csv", row.names = FALSE)
+
 # Plot Swiss reports per year and medium---
 grouped_by_medium <- random_sample %>%
   group_by(year, medium_code) %>% 
@@ -64,5 +67,6 @@ tok_clean <- tokens(myCorpus,
 word_counts <- sapply(tok_clean, function(x) str_count(paste(x, collapse = " "), "\\S+"))
 mean_tok <- mean(word_counts, na.rm = TRUE)
 mean_tok 
+
 
 ## TOTAL OF TOKENS: 2'550'000
