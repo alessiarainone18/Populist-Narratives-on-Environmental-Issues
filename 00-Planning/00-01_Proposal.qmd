@@ -1,0 +1,143 @@
+---
+title: "Proposal"
+author: "Alessia Rainone"
+format: pdf
+editor: visual
+---
+
+# CAPSTONE PROJECT PROPOSAL
+
+Data mining and Large Language Models (LLMs) for Political and Social Sciences
+
+Spring Term 2025
+
+Alessia Rainone
+
+## 1. Project Title
+
+Populist Narratives on Environmental Issues in the Media: A Discourse Analysis
+
+## 2. Project Type
+
+Research-Oriented (possible expansion to seminar paper / master's thesis)
+
+## 3. Project Overview (150-200 words)
+
+The goal of this project is to analyze media discourse on parties in Switzerland over the past ten years, with a particular focus on environmental topics. In a recent seminar paper, I investigated the relationship between climate awareness and populist attitudes, examining why right-wing populist attitudes often correlate with higher levels of climate skepticism. However, as theory suggests a significant difference between left- and right-wing populism, I also found that left-wing populist attitudes do not exhibit the same critical stance toward climate change. Instead, left-wing populism clearly tends to support climate policies.
+
+Building on these findings, this project will now conduct a **media analysis of populist discourses in Swiss media**, examining how different political parties frame and engage in populist rhetoric concerning environmental issues.
+
+### Research Question
+
+How do the Swiss People's Party (SVP) and the Green Party present themselves in populist discourses on environmental issues, and how do their narratives differ?
+
+## 4. Data Sources
+
+Media articles of the past 10 years of mainstream media outlets in the German part of Switzerland:
+
+-   Blick Online, 20 Minuten, Tagesanzeiger, NZZ, SRF (online),
+
+-   Filtered by the following key words: Climate - Climate change - Climate crisis - Climate protection - Global warming - Global warming - Climate policy (in German)
+
+## 5. Methods and Tools
+
+1.  **API Access via swissdox.ch:** Swissdox provides access to a vast collection of media articles from Switzerland over the past 50 years.
+
+    -   **Customizable Queries:** Users can select specific media outlets for analysis, define the time period, keywords, and desired variables through the API.
+
+    -   **Free Access for Students:** Access is free for students upon submitting a project inquiry.
+
+    -   **API Access Keys:** API access keys are provided through the created project.
+
+2.  **Data Manipulation in R Studio:**
+
+    -   **Further filtering** to only (national and cantonal) politics content, as well as green parties in Switzerland
+
+    -   **Tokenization** and **Stopword** Removal
+
+3.  **ChatGPT API:**
+
+    -   Quantitative text analysis of media articles via **API connection to ChatGPT**
+    -   Categories (suggestion made by ChatGPT 4.0):
+        -   <div>
+
+            1.  Not or Minimally Climate-Related
+
+                *Articles with little to no connection to climate issues or green parties.*
+
+            2.  Climate Politics & Green Parties
+
+                *Coverage of political actions, policies, and debates related to climate change, specifically involving green parties.*
+
+            3.  Climate Activism & Green Parties
+
+                -   Positive (*e.g., Green parties supporting scientific climate activism, successful protest movements*)
+
+                -   Negative *(e.g., Green parties criticized for supporting controversial activism, such as road blockades)*
+
+            4.  Climate Science & Green Parties
+
+                *Discussion of climate science in connection with green parties (e.g., how they use scientific arguments in political discourse).*
+
+            5.  Public Opinion on Climate Science & Green Parties
+
+                *Polls, opinion pieces, and discourse about how the public perceives climate science and how this affects support for green parties.*
+
+            6.  Media Representation of Green Parties
+
+                -   Positive (e.g., electoral success, policy achievements, strong leadership on climate issues)
+
+                -   Negative (e.g., electoral losses, criticism of policies, internal conflicts)
+
+            7.  Populist Climate Discourse & Green Parties (Optional for Further Research)
+
+                *How green parties are framed in populist discourse (e.g., portrayed as "climate alarmists" or as an "elitist movement").*
+
+            </div>
+
+## 6. Milestone Plan
+
+1.  Data acquisition completed: 26.03.2025
+2.  First draft of analysis or implementation: 01.04.2025
+3.  Key results or functional tool: 06.04.2025
+4.  Report structure and documentation drafted: 10.04.2025
+5.  Finalization and revision of report: 10.04.-17.04.2025
+6.  Deadline set: **17.04.2025, 14:00**
+
+## 7. GitHub Plan
+
+**Folder with subfolders**
+
+00-Planning
+
+01-Data
+
+02-Scripts
+
+\- 00-functions
+
+\- 01-data-input
+
+\- 02-prep-data
+
+\- 03-analysis
+
+03-Output
+
+04-Junk
+
+05-Report
+
+## 8. Anticipated Challenges
+
+-   API-Connections on Swissdox and ChatGPT
+    -   Swissdox: completed.
+    -   ChatGPT: to be done.
+
+# 9. Expected Output
+
+The expected outcome of this project is a report analyzing media discourse on green parties in Switzerland over the past decade. The initial goal is to collect relevant data and systematically categorize the media articles based on their framing of green parties and climate-related topics. The report will include an overview of trends in media coverage, key findings from the categorization process, and potential insights into how media discourse has evolved over time.
+
+# 10. LLM Use Declaration
+
+I will use ChatGPT-4.0 as an assistant for coding tasks and, ultimately, for the categorization of media articles. The model will help process large amounts of text data, identify relevant themes, and classify articles according to predefined categories.
