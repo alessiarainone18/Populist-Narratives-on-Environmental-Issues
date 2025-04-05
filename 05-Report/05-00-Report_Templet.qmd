@@ -1,0 +1,103 @@
+---
+title: "Templete Title"
+subtitle: "Subtitle"
+author: 
+  - "Firstname Lastname, email@email.com, matrikel-nr"
+  - "Supervisor: Prof. Dr. Firstname Lastname"
+  - "Number of words: 10000"
+lang: en
+date: today
+date-format: "D. MMMM YYYY"
+format: 
+  pdf:
+    documentclass: scrreprt
+    number-sections: true
+    toc: true
+    toc-depth: 2
+      lof: true
+    lot: true
+    include-in-header:
+      - text: |
+          \usepackage{authblk}
+          \usepackage{titling}
+fontsize: 12pt
+linestretch: 1.5
+geometry: left=2.5cm,right=2.5cm,top=3cm,bottom=3cm
+bibliography: bibliography.bib
+citeproc: true
+execute:
+  echo: false
+  warning: false
+knitr:
+  opts_chunk:
+    message: false
+lof: true
+lot: true
+---
+
+# Abstract {.unnumbered}
+
+200 words
+
+# Introduction
+
+ - Paragraph 1: What this is about.
+ - Paragraph 2: Why is it relevant?
+ - Paragraph 3: What I am doing (incl. research question).
+
+
+# Literature Review
+
+ - What have others already done similar? [all relevant sources should be available here].
+ - What am I doing differently from them?
+ 
+# Theory
+
+Theoretical argument and derive the hypotheses / models from it. If useful (e.g. because complex): Draw model.
+
+![Theoretical model](modell.pdf){#fig-modell}
+
+# Empery
+
+Verify theory with data to answer the research question.
+
+## Data 
+
+What data am I working with? Why am I working with this data? How many cases do I have? Why exactly these cases (if few cases, e.g. country study).
+
+A table with the most important demographic characteristics (if cases are individuals): Gender, age, other variables if any (average/proportion in each case, standard deviation if any).
+
+As seen in @tbl-stats[^stargazer], ....
+
+[^stargazer]: (R packages are usually cited in a footnote.) The table was created with the R package stargazer [@Stargazer].
+
+## Methods 
+
+What methods do I use to analyze the data? How are the relevant variables measured (are they recoded / summarized)?
+
+If own survey / experiment: The design of the survey / experiment.
+
+## Results
+Show results with plot, answer RQ
+
+## Discussion
+
+Discuss the results.
+
+# Conclusion
+
+What have we learned from this work (at best: and what not)? What would be next steps in this research?
+
+# Bibliography {.unnumbered}
+
+::: {#refs}
+:::
+
+# Appendix {.unnumbered}
+
+```{r ref.label=knitr::all_labels()}
+#| echo: true
+#| eval: false
+
+```
+
