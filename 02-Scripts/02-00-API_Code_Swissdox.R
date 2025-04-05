@@ -134,6 +134,7 @@ if (status_code(download_response) == 200) {
 }
 
 
+
 #Unzip & load data -------------------------------------------------------------
 gunzip("dataset_environmentalpolitics.tsv.xz", destname = "dataset_environmentalpolitics.tsv", remove = FALSE)
 data <- read.delim("dataset_environmentalpolitics.tsv", sep = "\t", encoding = "UTF-8")
