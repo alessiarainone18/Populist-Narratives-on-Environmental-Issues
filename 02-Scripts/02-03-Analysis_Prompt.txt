@@ -115,6 +115,15 @@ weitgehend ausgeblendet. Dafür fokussiert die Volkspartei auf die ihrer Meinung
 ---
 
 ## Output Format
-For each task just return the numeric code of the chosen category. No explanations why you chose the code, please just the code to its variable.
+Please provide only the numerical codes for the following tasks, without any explanation or description. 
+For each task, return a single number (1, 0, 2, 99 etc.) for each respective task under the variable name in brackets.
+
+TASK 1: Relevance ("relevance")
+TASK 2: Political Party Mentioned ("party")
+TASK 3: Support or Opposition ("support")
+TASK 4: Populist vs. Pluralistic Framing ("discourse")
+TASK 5: Definitions of "People" and the "Elite" ("people" and "elite")
+
+Only return the numbers, one per line, without any additional text or explanation.
 
 
