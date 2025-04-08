@@ -4,7 +4,7 @@ library(httr)
 library(R.utils)
 library(tidyverse)
 
-setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/00-Planning/API/Swissdox")
+setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues/00-Planning/API/Swissdox")
 
 api_key <- readLines("api_key.txt")
 api_secret <- readLines("api_secret.txt") 

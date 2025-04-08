@@ -3,7 +3,7 @@ library(tidyverse)
 library(quanteda)
 
 # Set up WD
-setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/01-Data")
+setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues/01-Data")
 
 # Load data
 data <- read.delim("dataset_environmentalpolitics.tsv", sep = "\t", encoding = "UTF-8")
@@ -32,6 +32,8 @@ filtered_data <- data %>%
 # Draw a random sample of 5000
 set.seed(123)
 random_sample <- sample_n(filtered_data, 5000)
+random_sample <- random_sample %>%
+  select(-regional, -doctype, -doctype_description, -language, -subhead)
 
 # Save sample
 write.csv(random_sample, "random_sample.csv", row.names = FALSE)

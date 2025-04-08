@@ -111,10 +111,10 @@ vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung 
 stärken, statt sie mit neuen Regeln zu belasten." --> "6" 
 # Example 3: "In der offiziellen Abstimmungskampagne fährt die SVP eine andere Linie. Dort wird der Klimawandel, um den es eigentlich geht,
 weitgehend ausgeblendet. Dafür fokussiert die Volkspartei auf die ihrer Meinung nach negativen Seiten des Gesetzes."
---> "1" because it is generally about "protecting" the populiation from the negative consequences of the law
+--> "1" because it is generally about "protecting" the population from the negative consequences of the law
 ---
 
 ## Output Format
-For each task just return the numeric code of the chosen category.
+For each task just return the numeric code of the chosen category. No explanations why you chose the code, please just the code to its variable.
 
 

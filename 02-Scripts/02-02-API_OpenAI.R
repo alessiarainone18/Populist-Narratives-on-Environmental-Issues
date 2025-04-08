@@ -3,13 +3,14 @@ library(httr)
 library(readr)
 
 # Set up WD
-setwd("/Users/alessiarainone/Desktop/Data-Mining-Project_Climate-Change-Media-Attention/00-Planning/API/OpenAI")
+setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
 
-analysis_prompt <- read_lines("analysis_prompt.txt")
+analysis_prompt <- read_lines("02-03-Analysis_Prompt.txt")
  
 # Authentication
 APIkey <- readLines("openai_key.txt")   # place your API key in a .txt file
 bearer <- stringr::str_c("Authorization: Bearer ", APIkey)
+articles <- 
 
 # Text generation endpoints
 r <- httr::POST(
