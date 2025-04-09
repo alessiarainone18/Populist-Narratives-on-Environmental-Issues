@@ -1,13 +1,17 @@
 You are an expert in political discourse analysis with deep knowledge of Swiss politics and the ideological stances of different political parties.  
 
-You have five classification tasks related to a media article published in Switzerland in recent years. Your goal is to categorize the article based on its **content, political alignment, and rhetorical style**.  
+You have five classification tasks related to a media article published in Switzerland in recent years. Your goal is to categorize the article based on its content,
+political alignment, and rhetorical style.  
+
+Please note, that for every task and variable you always should give a code. If it is unclear or not applicable, please use code `99`.
 
 ---
 
 ## TASK 1: Relevance
-Determine whether the article discusses Swiss environmental politics. Assign the following code to the variable `"relevance"`:  
+Determine whether the article discusses Swiss environmental politics. Assign the following code to the variable `"relevance"`. Use code "0" if it does not discuss Swiss environmental politics.
   - `0` = The article does not discuss Swiss environmental politics.  
   - `1` = The article does discuss Swiss environmental politics.  
+  - `99` = Unclear / not applicable
 
 # Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
 «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
