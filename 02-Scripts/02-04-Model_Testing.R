@@ -102,9 +102,7 @@ analyze_article <- function(article_text, prompt, APIkey) {
 
 # Zufällige Auswahl von 5 Artikeln und deren Artikelnummern
 test_sample <- read.csv("test_sample.csv", sep = ",", header = TRUE)
-test_articles_2 <- test_sample %>%
-  filter(id %in% c(42459698, 51623332, 47895683, 37790583))
-
+test_articles_2 <- test_sample[sample(1:nrow(test_sample), 5), ]
 test_articles_text <- test_articles_2$content  
 
 # Ergebnisse speichern
@@ -192,13 +190,6 @@ analyze_article <- function(article_text, prompt, APIkey) {
     elite     = as.integer(result_lines[6])
   ))
 }
-
-# Zufällige Auswahl von 5 Artikeln und deren Artikelnummern
-test_sample <- read.csv("test_sample.csv", sep = ",", header = TRUE)
-test_articles_2 <- test_sample %>%
-  filter(id %in% c(42459698, 51623332, 47895683, 37790583))
-
-test_articles_text <- test_articles_2$content  
 
 # Test-Artikel vorbereiten
 # Angenommen, test_articles_text enthält die Artikeltitel, test_articles_2$article_nr die IDs
