@@ -23,20 +23,22 @@ party_keywords <- c(
   "Schweizerische Volkspartei", "SVP", "SVP Schweiz", "Schweizerische Volkspartei Schweiz", "Swiss People's Party")
   
 data$content <- as.character(data$content)
+
 filtered_data <- data %>% 
   filter(grepl(paste(party_keywords, collapse = "|"), content, ignore.case = TRUE)) %>%
   mutate(wordcount = str_count(content, "\\S+")) %>%
   distinct(medium_code, content, .keep_all = TRUE) %>%
-  filter(wordcount >= 200 & wordcount <= 2000, year >= 2014)
+  filter(wordcount >= 300 & wordcount <= 2000, year >= 2014) %>%
+  select(-regional, -doctype, -doctype_description, -language, -subhead) %>%
+  filter(!str_detect(rubric, regex("international", ignore_case = TRUE)))
 
-# Draw a random sample of 5000
+
+# Draw a random sample of 2500
 set.seed(123)
-random_sample <- sample_n(filtered_data, 5000)
-random_sample <- random_sample %>%
-  select(-regional, -doctype, -doctype_description, -language, -subhead)
+random_sample <- sample_n(filtered_data, 2500)
 
 # Save sample
-write.csv(random_sample, "random_sample.csv", row.names = FALSE)
+write.csv(random_sample, "random_sample_2500.csv", row.names = FALSE)
 
 # Plot Swiss reports per year and medium---
 grouped_by_medium <- random_sample %>%
