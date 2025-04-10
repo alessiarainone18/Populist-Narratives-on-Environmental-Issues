@@ -6,7 +6,7 @@ library(jsonlite)
 library(dplyr)
 
 setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
-data <- read.csv("01-Data/random_sample.csv", sep = ",", header = TRUE)
+data <- read.csv("01-Data/random_sample_2500.csv", sep = ",", header = TRUE)
 
 # Save test data----
 set.seed(1234)
@@ -105,11 +105,24 @@ test_articles_text <- test_articles$content
 test_article_nr <- test_articles$article_nr
 
 # Second run
-data_2 <- read.csv("01-Data/random_sample_2500.csv", sep = ",", header = TRUE)
+data <- read.csv("01-Data/random_sample_2500.csv", sep = ",", header = TRUE)
 
 set.seed(1234)
 test_sample_2 <- sample_n(data_2, 10)
 test_articles <- test_sample_2 %>%
+  mutate(article_nr = 1:n())
+
+test_articles <- test_articles %>%
+  mutate(content=as.character(content))
+
+test_articles_text <- test_articles$content
+test_article_nr <- test_articles$article_nr
+
+# Third run
+view(data) 
+test_articles <- data %>%
+  mutate(id = as.character(id)) %>%
+  filter(id %in% c("36931585", "47543364", "46901385", "413604" )) %>%
   mutate(article_nr = 1:n())
 
 test_articles <- test_articles %>%
@@ -148,6 +161,6 @@ final_results <- bind_rows(results) %>%
   print()
 
 # Save as CSV
-write_csv(final_results, "03-Output/article_analysis_results_test_3.csv")
+write_csv(final_results, "03-Output/article_analysis_results_test_4.csv")
 
 
