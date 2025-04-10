@@ -12,10 +12,9 @@ format:
   pdf:
     documentclass: scrreprt
     number-sections: true
-    toc: true
+    toc: false
     toc-depth: 2
-      lof: true
-    lot: true
+    lot: false
     include-in-header:
       - text: |
           \usepackage{authblk}
@@ -23,7 +22,6 @@ format:
 fontsize: 12pt
 linestretch: 1.5
 geometry: left=2.5cm,right=2.5cm,top=3cm,bottom=3cm
-bibliography: bibliography.bib
 citeproc: true
 execute:
   echo: false
