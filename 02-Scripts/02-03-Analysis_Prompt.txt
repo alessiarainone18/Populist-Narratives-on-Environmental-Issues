@@ -129,5 +129,3 @@ TASK 4: Populist vs. Pluralistic Framing ("discourse")
 TASK 5: Definitions of "People" and the "Elite" ("people" and "elite")
 
 Only return the numbers, one per line, without any additional text or explanation.
-
-
