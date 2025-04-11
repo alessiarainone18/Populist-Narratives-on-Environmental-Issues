@@ -162,7 +162,7 @@ final_results <- bind_rows(results) %>%
   print()
 
 # Save as CSV
-write_csv(final_results, "03-Output/article_analysis_results_test_6.csv")
+write_csv(final_results, "03-Output/article_analysis_results_test_SWremoved.csv")
 
 
 
