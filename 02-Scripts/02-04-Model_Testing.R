@@ -40,6 +40,7 @@ analyze_article <- function(article_text, prompt, APIkey) {
       httr::add_headers(Authorization = paste("Bearer", APIkey)),
       body = list(
         model = "gpt-4o",
+        temperature = 0, 
         messages = list(
           list(role = "system", content = prompt),
           list(role = "user", content = article_text)
@@ -161,6 +162,8 @@ final_results <- bind_rows(results) %>%
   print()
 
 # Save as CSV
-write_csv(final_results, "03-Output/article_analysis_results_test_4.csv")
+write_csv(final_results, "03-Output/article_analysis_results_test_6.csv")
+
+
 
 
