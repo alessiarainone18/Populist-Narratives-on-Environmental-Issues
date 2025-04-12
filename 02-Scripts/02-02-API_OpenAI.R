@@ -70,8 +70,8 @@ analyze_article <- function(article_text, prompt, APIkey) {
   
   result_text <- result_content$choices[[1]]$message$content
   
-  result_lines <- strsplit(result_text, "\n")[[1]]
-  result_lines <- trimws(result_lines)
+  result_lines <- result_lines[!grepl("^```", result_lines)] # remove code block lines
+  result_lines <- result_lines[result_lines != ""] # remove empty lines
   
   return(tibble(
     relevance = get_safe_code(result_lines, 1),

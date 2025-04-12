@@ -35,10 +35,10 @@ filtered_data <- data %>%
 
 # Draw a random sample of 2500
 set.seed(123)
-random_sample <- sample_n(filtered_data, 2500)
+random_sample <- sample_n(filtered_data, 2000)
 
 # Save sample
-write.csv(random_sample, "random_sample_2500.csv", row.names = FALSE)
+write.csv(random_sample, "random_sample_2000.csv", row.names = FALSE)
 
 # Plot Swiss reports per year and medium---
 grouped_by_medium <- random_sample %>%
@@ -55,6 +55,7 @@ ggplot(grouped_by_medium, aes(x = year, y = n, color = medium_code, group = medi
                      labels = medium_labels) +  # Farbliche Zuweisung und Labels
   theme_minimal()  
 
+random_sample <- read.csv("random_sample_2500.csv", sep = ",", header = TRUE)
 print(random_sample %>%
         summarise(wordcount_mean = mean(wordcount)))
 
@@ -73,5 +74,17 @@ word_counts <- sapply(tok_clean, function(x) str_count(paste(x, collapse = " "),
 mean_tok <- mean(word_counts, na.rm = TRUE)
 mean_tok 
 
+tokens_total <- (518.5*2500) %>%
+  print()
 
-## TOTAL OF TOKENS: 2'550'000
+words_total <- (788*2500) %>%
+  print()
+
+tok_clean <- tokens(data$content, ...) %>%
+  tokens_remove(stopwords("german"))
+saveRDS(tok_clean, file = "tok_clean.rds")
+
+
+
+
+

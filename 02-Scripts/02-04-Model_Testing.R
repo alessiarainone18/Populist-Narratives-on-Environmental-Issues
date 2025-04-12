@@ -13,10 +13,6 @@ set.seed(1234)
 test_sample <- sample_n(data, 50)
 write.csv(test_sample, "test_sample.csv", row.names = FALSE)
 
-### Load test data---- 
-# test_sample <- read.csv("test_sample.csv", sep = ",", header= TRUE)
-test_sample <- test_sample %>%
-  select(-regional, -doctype, -doctype_description, -language, -subhead)
 
 ### Prompt & API Key
 analysis_prompt <- read_lines("02-Scripts/02-03-Analysis_Prompt.txt") %>% paste(collapse = "\n")
@@ -162,7 +158,7 @@ final_results <- bind_rows(results) %>%
   print()
 
 # Save as CSV
-write_csv(final_results, "03-Output/article_analysis_results_test_SWremoved.csv")
+write_csv(final_results, "03-Output/article_analysis_results.csv")
 
 
 
