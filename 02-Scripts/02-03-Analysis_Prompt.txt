@@ -64,7 +64,7 @@ stärken, statt sie mit neuen Regeln zu belasten." --> "5 - very populistic"
   - 2 = Corporations/business
   - 3 = Media
   - 4 = Intellectuals
-  - 5 = International orgs
+  - 5 = International organisations
   - 6 = NGOs
   - 99 = Other, not applicable
 # Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
