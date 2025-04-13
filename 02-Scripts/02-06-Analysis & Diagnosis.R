@@ -102,17 +102,18 @@ data_correct %>%
 # Analysis with data_correct
 data_svp <- data_correct %>%
   filter(party == 1) %>%
-  select(id, party, discourse, people, elite)
+  select(id, party, support, discourse, people, elite)
 
 data_jsvp <- data_correct %>%
   filter(party == 2) %>%
-  select(id, party, discourse, people, elite)
+  select(id, party, support, discourse, people, elite)
 
 data_green <- data_correct %>%
   filter(party == 3) %>%
-  select(id, party, discourse, people, elite)
+  select(id, party, support, discourse, people, elite)
 
 data_younggreen <- data_correct %>%
   filter(party == 4) %>%
-  select(id, party, discourse, people, elite)
+  select(id, party, support, discourse, people, elite)
+
 
