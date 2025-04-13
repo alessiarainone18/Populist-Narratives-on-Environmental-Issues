@@ -42,7 +42,7 @@ exponential_backoff <- function(retries) {
   Sys.sleep(2^retries)
 }
 
-# Loop über alle Artikel
+# Loop over articles
 for (i in seq_len(nrow(articles))) {
   article_text <- articles$content[i]
   
@@ -90,15 +90,14 @@ for (i in seq_len(nrow(articles))) {
   }
   
   cat("Finished case", i, "\n")
-  Sys.sleep(2)  # Kurze Pause nach jeder erfolgreichen Anfrage
+  Sys.sleep(2)  # to slower analysis
 }
 
-# Erstelle die Ergebnisse und kombiniere mit den Artikeln
 results_df <- articles %>%
   mutate(chatgpt_response = chatgpt_responses) %>%
   select(id, chatgpt_response)
 
-# Entferne Markdown und unnötige Leerzeichen
+# Clean dataset
 results_clean <- results_df %>%
   mutate(
     cleaned_response = chatgpt_response %>%
@@ -106,7 +105,6 @@ results_clean <- results_df %>%
       str_squish()
   )
 
-# Splitte die Antworten in einzelne Spalten für die Codes
 results_split <- results_clean %>%
   separate(cleaned_response, into = paste0("code_", 1:6), sep = " ")
 
