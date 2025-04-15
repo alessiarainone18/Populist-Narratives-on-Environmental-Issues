@@ -27,7 +27,7 @@ Media articles (via Swissdox.ch) on green party & SVP about environmental issues
 - (Personal) deadline set to: **17.04.2025, 14:00**
 
 ## Outcomes & Content of Repository
-- **A proposal** including the research plan and milestones is available under *"01-Planning*
+- **A proposal** including the research plan and milestones is available under *"01-Planning"*
 - **Scripts** to ensure reproducibility are available in folder *"02-Scripts"*
 - Original data is **not published** since the general business restrictions of Swissdox do not allow to publish the collected data, but can be requested
 - Outputs of the **categorization of the articles of OpenAI API** are availble in *"03-Outputs"*. This includes test results and final results.
