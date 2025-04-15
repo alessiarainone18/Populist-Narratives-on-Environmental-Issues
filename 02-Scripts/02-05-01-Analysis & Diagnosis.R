@@ -1,5 +1,10 @@
 # Load packages
 library(tidyverse)
+library(dplyr)
+library(knitr)
+library(stargazer)
+library(gt)
+
 
 # Load data
 setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
@@ -59,6 +64,9 @@ duplicates_2 <- data_combined_cleaned %>%
   filter(id %in% dupli_ids_2) %>% 
   print()
 
+write.csv(data_combined_cleaned, "01-Data/01-01-Data_Cleaned.csv", row.names = FALSE)
+
+
 # 0 duplicates
 
 ## ERROR DIAGNOSIS---- 
@@ -68,30 +76,37 @@ errors <- data_combined_cleaned %>%
 
 # 492 errors. But why?
 # Comparison of classified cases vs. errors
-
-errors %>%
+summary_errors <- errors %>%
   summarise(
-    mean_wordcount = mean(wordcount, na.rm = TRUE),
-    mean_charcount = mean(char_count, na.rm = TRUE),
-    under700 = sum(wordcount < 700, na.rm = TRUE),
-    over700 = sum(wordcount > 700, na.rm = TRUE),
-    under1000 = sum(wordcount < 1000, na.rm =TRUE),
-    over1000 = sum(wordcount > 1000, na.rm =TRUE),
-    mean_article_nr = mean(article_nr, na.rm = TRUE)
-  )
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>% t() %>% as.data.frame()
 
-data_correct <- data_combined_cleaned %>%
-  filter(!is.na(relevance)) 
-
-data_correct %>%
+summary_correct <- data_combined_cleaned %>%
+  filter(!is.na(relevance)) %>%
   summarise(
-    mean_wordcount = mean(wordcount, na.rm = TRUE),
-    mean_charcount = mean(char_count, na.rm = TRUE),
-    under700 = sum(wordcount < 700, na.rm = TRUE),
-    over700 = sum(wordcount > 700, na.rm = TRUE),
-    under1000 = sum(wordcount < 1000, na.rm =TRUE),
-    over1000 = sum(wordcount > 1000, na.rm =TRUE),
-    mean_article_nr = mean(article_nr, na.rm = TRUE)
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>% t() %>% as.data.frame()
+
+comparison_table <- cbind(summary_errors, summary_correct)
+colnames(comparison_table) <- c("Errors", "Valid Articles")
+comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
+
+comparison_table %>%
+  gt() %>%
+  tab_header(
+    title = "Comparison of Article Stats: Errors vs. Valid"
   )
 
 # Errors have almost double as much wordcount and char_count. Probably too long articles to 

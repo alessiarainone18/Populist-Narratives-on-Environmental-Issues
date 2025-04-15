@@ -33,6 +33,16 @@ lof: true
 lot: true
 ---
 
+```{r}
+#| echo: false 
+#| eval: true
+library(tidyverse)
+library(dplyr)
+library(knitr)
+library(stargazer)
+library(gt)
+```
+
 # Abstract {.unnumbered}
 
 This project attempts to answer the question *how Swiss parties present themselves in populist discourses on environmental issues in Swiss mainstream media* focusing on the Swiss People's Party (SVP) and the Green Party. The project conducts a quantitative discourse analysis using a Large Language Model to explore how the SVP and the Green Party engage with populist rhetoric when addressing environmental topics. The aim is to understand how both parties construct their narratives and how they position themselves in context of "the people" and elites.
@@ -88,9 +98,52 @@ In total, the initial API query returned over 87,000 articles. To refine the dat
 Unnecessary metadata and variables delivered by the API were removed, and articles categorized under rubrics containing the term “international” were excluded, as the study focuses exclusively on environmental discourse within the Swiss national context. After applying these filters, the final dataset consisted of approximately 15,000 articles. From this corpus, a random sample of 2,500 articles was drawn. The analysis is conducted on this subset, which is considered representative of the overall sample and sufficient for drawing meaningful conclusions.
 
 ```{r ref.label=knitr::all_labels()}
-#| echo: true 
-#| eval: false
+#| echo: false
+#| eval: true
 
+data_combined_cleaned <- read.csv("01-Data/01-01-Data_Cleaned.csv", sep = ",", header = TRUE)
+
+errors <- data_combined_cleaned %>%
+  filter(is.na(relevance)) 
+
+summary_errors <- errors %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>% t() %>% as.data.frame()
+
+summary_correct <- data_combined_cleaned %>%
+  filter(!is.na(relevance)) %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>% t() %>% as.data.frame()
+
+comparison_table <- cbind(summary_errors, summary_correct)
+colnames(comparison_table) <- c("Errors", "Valid Articles")
+comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
+
+```
+
+```{r}
+#| echo: true
+#| eval: true
+
+comparison_table %>%
+  gt() %>%
+  tab_header(
+    title = "Comparison of Article Stats: Errors vs. Valid"
+  )
 
 ```
 
@@ -99,6 +152,8 @@ Unnecessary metadata and variables delivered by the API were removed, and articl
 ### Quantitative Text Analysis via Open AI API
 
 For the qualitative coding of populist framing and party positioning, the Open AI API (version 4.0) was used. Articles were evaluated based on a set of categories developed in collaboration with the model. This framework allows for systematic comparison of populist discourses across parties and enables the identification of distinct rhetorical patterns in environmental narratives.
+
+*Table 1: Categorization system*
 
 <div>
 
@@ -162,6 +217,16 @@ However, a short test using four previously used, clearly relevant articles show
 This adjusted process ran for approximately three hours and reduced the error rate by only 20% compared to earlier tests. Nevertheless, the analysis was considered *more or less* successful. To validate the results, two further steps followed: first, a manual verification of selected article categorizations; second, an analysis of the articles that consistently returned errors.
 
 ### Validation of results
+
+#### Manual verification 
+
+To verify the classification provided by the OpenAI API, 20 successfully analyzed articles (i.e., non-error cases) were randomly selected and saved in Excel format as a verification sample. For this verification, the articles were manually coded based on the same instructions that had been used for the OpenAI classification, following the categorization system presented in Table 1.
+
+Before checking the OpenAI results, I coded the articles myself to avoid bias. In the final step, I compared my manual categorization with the one provided by OpenAI. Seventeen out of twenty articles were classified identically. The remaining three differed, but all of them were only marginally relevant to environmental politics, as they either did not mention specific political parties or referred to multiple parties without clear alignment—making them less significant for the analysis.
+
+One notable exception involved an article written by an SVP National Council member, who argued in favor of environmentally friendly agricultural policy without using any populist rhetoric. OpenAI did not correctly identify the author's affiliation, likely because it was only mentioned in the final sentence of the article. While this misclassification does not undermine the overall results, it provides an important insight for future analyses: in articles from newspapers—where guest authorships are common—it may be necessary to pay special attention to the author’s identity.
+
+#### Analysis of API errors
 
 # Results
 
