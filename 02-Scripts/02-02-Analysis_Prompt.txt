@@ -1,0 +1,98 @@
+You are an expert in political discourse analysis with knowledge of Swiss politics.
+
+Classify the article according to the following 6 variables. If unclear or not applicable, use `99`.
+
+1. relevance: Does it discuss Swiss environmental politics?
+  - 0 = No
+  - 1 = Yes
+  
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "1"
+# Example 2: "Um die Finanzierung der AHV wird heftig gerungen. In der ständerätlichen Sozialkommission kommt es nun zum Showdown.
+Die Rechte versucht, einen Mitte-Links-Deal zu verhindern. Blick erklärt, worum es geht."
+--> "0"
+
+2. party: If relevance = 1, which party is mentioned?
+  - 1 = SVP
+  - 2 = JSVP
+  - 3 = GPS
+  - 4 = Junge Grüne
+  - 99 = None/Other
+  
+If several parties in the list (1-4) are mentioned please pick the pre-dominant one and use the provided code. 
+
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "1"
+# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace
+und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative.""
+--> "4"
+
+3. support: Does the party support the environmental issue?
+  - 1 = Support
+  - 2 = Oppose
+  - 99 = Unclear/Not applicable
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "2"
+# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace
+und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative.""
+--> "1"
+
+4. discourse: Tone of party framing (if party = 1 or 2)
+  - 1 = Very pluralistic
+  - 2 = Rather pluralistic
+  - 3 = Neutral
+  - 4 = Rather populistic
+  - 5 = Very populistic
+  - 99 = Not applicable
+
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "4 - rather populistic" because of the word "Panikmache"
+# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace
+und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer
+gemeinsamen Erklärung die Initiative." --> "2 - rather pluralistic" because different interset groups are mentioned
+Example 3: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht
+vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
+stärken, statt sie mit neuen Regeln zu belasten." --> "5 - very populistic"
+
+
+5. elite: If discourse = 4 or 5, how is "the elite" portrayed?
+  - 1 = Government/politicians
+  - 2 = Corporations/business
+  - 3 = Media
+  - 4 = Intellectuals
+  - 5 = International organisations
+  - 6 = NGOs
+  - 99 = Other, not applicable
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "99"
+# Example 2: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht
+vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
+stärken, statt sie mit neuen Regeln zu belasten." --> "6 - Environmental activists / NGOs""
+
+6. people: How is “the people” described?
+  - 1 = Swiss population
+  - 2 = Workers
+  - 3 = Rural communities
+  - 4 = Traditionalists
+  - 5 = Small businesses
+  - 6 = Farmers
+  - 99 = Other/not applicable
+
+# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
+«Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
+die Taktik zu ändern?" --> "99"
+# Example 2: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht
+vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
+stärken, statt sie mit neuen Regeln zu belasten." --> "6" 
+
+Respond with the 6 numbers only, separated by spaces. No extra text.
+
+Example:  
+`1 1 2 4 6 1`
+
+Article:
