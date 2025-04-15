@@ -4,7 +4,7 @@ subtitle: "Capstone Project in Data Mining and Large Language Models for Politic
 author: 
   - "Alessia Rainone, alessia.rainone@stud.unilu.ch, 20-118-808"
   - "Supervisor: Prof. Dr. Andrea De Angelis"
-  - "Number of words: 1XX"
+  - "Number of words: 4020"
 lang: en
 date: today
 date-format: "D. MMMM YYYY"
@@ -23,6 +23,8 @@ fontsize: 12pt
 linestretch: 1.5
 geometry: left=2.5cm,right=2.5cm,top=3cm,bottom=3cm
 citeproc: true
+bibliography: datamining.bib
+biblio-style: apalike
 execute:
   echo: false
   warning: false
@@ -41,6 +43,7 @@ library(dplyr)
 library(knitr)
 library(stargazer)
 library(gt)
+
 ```
 
 # Abstract {.unnumbered}
@@ -49,9 +52,9 @@ This project attempts to answer the question *how Swiss parties present themselv
 
 # Introduction
 
-Over the past decade, environmental issues, especially those linked to climate change, have become central to political discourse around the world. In Switzerland, as in many other democracies, these topics are not only the subject of policy debates but are also increasingly shaped by populist rhetoric (SOURCE). Political parties across the ideological spectrum use media platforms to frame environmental concerns in ways that reflect their political agendas and mobilize their voter bases. This research project examines how the Swiss People’s Party (SVP), as a representative right-wing party, and the Green Party, as a representative left-wing party, engage in populist discourse on environmental issues in Swiss media.
+Over the past decade, environmental issues, especially those linked to climate change, have become central to political discourse around the world. In Switzerland, as in many other democracies, these topics are not only the subject of policy debates but are also much discussed in the daily media. Political parties across the ideological spectrum use media platforms to frame environmental concerns in ways that reflect their political agendas and mobilize their voter bases. This research project examines how the Swiss People’s Party (SVP), as a representative right-wing party, and the Green Party, as a representative left-wing party, engage in populist discourse on environmental issues in Swiss media.
 
-This question is especially relevant in today’s polarized political climate, where environmental policies often become battlegrounds for broader ideological conflicts (SOURCE). Previous research (e.g. @KulinandJohansson2024) has shown that right-wing populism tends to foster climate skepticism, whereas left-wing populism more often supports environmental action (QUELLE). These differences result from how each variant of populism defines “the elite” and “the people”. Understanding how such dynamics play out in the media landscape can shed light on the role of political communication in shaping public attitudes toward climate policy.
+This question is especially relevant in today’s polarized political climate, where environmental policies often become battlegrounds for broader ideological conflicts [@mccright_cool_2011]. Previous research (e.g. @kulin_rightwing_2024) has shown that right-wing populism tends to foster climate skepticism, whereas left-wing populism more often supports environmental action [@march_left_2017] These differences result from how each variant of populism defines “the elite” and “the people”. Understanding how such dynamics play out in the media landscape can shed light on the role of political communication in shaping public attitudes toward climate policy.
 
 Thus, this explorative research project investigates the following question: *How do the Swiss People's Party (SVP) and the Green Party present themselves in populist discourses on environmental issues, and how do their narratives differ?*
 
@@ -59,29 +62,25 @@ The entire project workflow was documented using version control via GitHub unde
 
 # Literature Review
 
-### Definition of Populism 
+### Definition of Populism
 
-Populism can be defined in different ways, with several theoretical frameworks attempting to conceptualize it. @Mudde (2004: 543) defines populism as “an ideology that ultimately divides society society into two homogeneous and antagonistic groups: 'the pure people' versus 'the corrupt elite', and which argues that politics is an expression of the volonté générale (general will) of the people.” Populism is usually described as a rather “thin” ideology because it is mainly concerned with the dichotomy between “the people” and “the elite”. The 'thin' nature of populism means that it cannot be used as a stand-alone political agenda, but must be combined with a so-called 'host' ideology to form a broader political platform. These 'host' ideologies, often referred to as 'thick' ideologies, provide the essential content of the political agenda.
+Populism can be defined in different ways, with several theoretical frameworks attempting to conceptualize it. @mudde_populist_2004 [p. 543] defines populism as “*an ideology that ultimately divides society society into two homogeneous and antagonistic groups: 'the pure people' versus 'the corrupt elite', and which argues that politics is an expression of the volonté générale (general will) of the people.*” Populism is usually described as a rather “thin” ideology because it is mainly concerned with the dichotomy between “the people” and “the elite”. The 'thin' nature of populism means that it cannot be used as a stand-alone political agenda, but must be combined with a so-called 'host' ideology to form a broader political platform. These 'host' ideologies, often referred to as 'thick' ideologies, provide the essential content of the political agenda.
 
-Depending on the host ideology, populism can take different forms and agendas (@MuddeRoviraKaltwasser2017). This distinction is particularly important when it comes to the relationship between populism and political ideologies, e.g. party-specific populism. In this context, left-wing and right-wing populism differ significantly in their used rhetoric due to their definition of “the people”. Left-wing populism generally defines “the people” in class-specific terms, focusing on issues of economic exploitation and advocating greater state intervention in the economy and a redistribution of wealth. Right-wing populism, on the other hand, often defines 'the people' in cultural terms (Mudde & Rovira Kaltwasser 2013) and focuses on nationalism, nativism and traditionalism. In contrast, left-wing populists generally tend to support international cooperation, while right-wing populists emphasize national sovereignty and are often skeptical of, if not openly hostile to, supranational institutions (March 2017).
+Depending on the host ideology, populism can take different forms and agendas [@mudde_studying_2018]. This distinction is particularly important when it comes to the relationship between populism and political ideologies, e.g. party-specific populism. In this context, left-wing and right-wing populism differ significantly in their used rhetoric due to their definition of “the people”. Left-wing populism generally defines “the people” in class-specific terms, focusing on issues of economic exploitation and advocating greater state intervention in the economy and a redistribution of wealth. Right-wing populism, on the other hand, often defines 'the people' in cultural terms [@mudde_exclusionary_2013] and focuses on nationalism, nativism and traditionalism. In contrast, left-wing populists generally tend to support international cooperation, while right-wing populists emphasize national sovereignty and are often skeptical of, if not openly hostile to, supranational institutions [@march_left_2017].
 
 ### Rise of Populism
 
-The rise of right-wing populism has become increasingly evident in recent years. On January 20th, 2025, Donald Trump signed an the withdrawal from the Paris Climate Agreement. He justified the decision by stating that he would "put America first," calling the agreement a "green new scam" for the United States (The Guardian / Noor 2025). Trump is widely recognized as a representative of right-wing populism, which is reflected in both his rhetoric and political agenda (Winberg 2017). Right-wing populist movements have also gained momentum across Europe. In September 2022, Giorgia Meloni became Prime Minister of Italy. In France, Marine Le Pen narrowly lost the second round of the presidential election in July 2024, despite her party leading in the first round (Politico / Caulcutt 2024). In Austria, the far-right Freedom Party (FPÖ) has made significant gains and is now the largest party in parliament, currently engaged in coalition negotiations with the leading ÖVP party (DW 2014). In Switzerland, the 2023 federal elections marked a clear shift to the right, with a significant increase in support for the Swiss People’s Party (SVP) (Swissinfo / Pauchard et al. 2024). In Germany, the the far-right Alternative für Deutschland (AfD) reached over 20% of the vote in the February 2025 elections, a 10% increase compared to the previous election.
+The rise of right-wing populism has become increasingly evident in recent years. On January 20th, 2025, Donald Trump signed an the withdrawal from the Paris Climate Agreement. He justified the decision by stating that he would "put America first," calling the agreement a "green new scam" for the United States [@noor_trump_2025]. Trump is widely recognized as a representative of right-wing populism, which is reflected in both his rhetoric and political agenda [@winberg_insult_2017]. Right-wing populist movements have also gained momentum across Europe. In September 2022, Giorgia Meloni became Prime Minister of Italy [@kirby_giorgia_2022]. In France, Marine Le Pen narrowly lost the second round of the presidential election in July 2024, despite her party leading in the first round [@caulcutt_french_2024]. In Switzerland, the 2023 federal elections marked a clear shift to the right, with a significant increase in support for the Swiss People’s Party (SVP) [@pauchard_right-wing_2024]. In Germany, the the far-right Alternative für Deutschland (AfD) reached over 20% of the vote in the February 2025 elections, a 10% increase compared to the previous election [@noauthor_bundestagswahl_2025].
 
-However, left-wing populism is also gaining renewed traction. In Germany, for example,
-the left-wing populist party Die Linke, which is also classified as populist in various academic sources (QUELLE), secured a vote gain of nearly 4%, with notable support among younger voters. This success has been attributed to a campaign strategy that emphasized simple language, a strong presence on social media, and effective populist language (<https://www.br.de/nachrichten/deutschland-welt/die-linke-ist-zurueck-das-sind-die-gruende-fuer-den-wahlerfolg,UdkFt7Q>).
+However, left-wing populism is also gaining renewed traction. In Germany, for example, the left-wing populist party Die Linke, which is also classified as populist in various academic sources secured a vote gain of nearly 4%, with notable support among younger voters. This success has been attributed to a campaign strategy that emphasized simple language, a strong presence on social media, and effective populist language [@kubina_linke_2025].
 
-Also in Italy, left-wing populism is a topic. The Five Star Movement (M5S), a left-wing populist party, which has openly expressed support for environmental protection ([link](https://www.movimento5stelle.eu/energia-dove-vogliamo-andare/)) gained 33% of the vote in the 2018
-elections. However, by 2022, its share had declined to just over 15%, continuing its downward trend. In Greece, the left-wing populist party Syriza follows a similar trajectory, combining anti-austerity rhetoric with a progressive stance on social and environmental issues (<https://www.nzz.ch/meinung/kommentare/rechts--und-linkspopulismus-auf-dem-vormarsch-ld.731715>)
+Also in Italy, left-wing populism is a topic. The Five Star Movement (M5S), a left-wing populist party, which has openly expressed support for environmental protection [@m5s_energia_2024] gained 33% of the vote in the 2018 elections. However, by 2022, its share had declined to just over 15%, continuing its downward trend [@statista_research_department_share_2024]. In Greece, the left-wing populist party Syriza follows a similar trajectory, combining anti-austerity rhetoric with a progressive stance on social and environmental issues [@eckhard_rechts-_2015].
 
 ### Populism in Switzerland
 
-In Switzerland, the SVP is widely considered a textbook example of right-wing populism. Its political manifestos frequently employ a populist rhetorical style, as shown by Storz and Benrauer (2018) through quantitative text analysis. Especially on environmental topics, the SVP tends to frame its messages in populist terms. A Master's thesis from the University of Zurich identified similar tendencies in the coverage of environmental issues by the right-leaning magazine Weltwoche ([source](https://onlinelibrary.wiley.com/doi/10.1111/spsr.12332)). Left-wing populism, by contrast, is far less visible in the Swiss political landscape. According to political scientists such as Pascal Sciarini, Yannis Papadopoulos, and Nenad Stojanovic (Tages-Anzeiger 2019), it exists, primarily at the local level, for instance in the city of Geneva. One reason for its limited presence may be the dominance of right-wing populism in recent years, which has benefitted from resonant topics such as the migration crisis or financial instability.
+In Switzerland, the SVP is widely considered a textbook example of right-wing populism. Its political manifestos frequently employ a populist rhetorical style, as shown by Storz and Benrauer (2018) through quantitative text analysis. Especially on environmental topics, the SVP tends to frame its messages in populist terms. A Master's thesis from the University of Zurich identified similar tendencies in the coverage of environmental issues by the right-leaning magazine Weltwoche using a machine learning approach [@gadze_how_2023]. Left-wing populism, by contrast, is far less visible in the Swiss political landscape. According to political scientists such as Pascal Sciarini, Yannis Papadopoulos, and Nenad Stojanovic [@baillat_so_2019], it exists, primarily at the local level, for instance in the city of Geneva. One reason for its limited presence may be the dominance of right-wing populism in recent years, which has benefitted from resonant topics such as the migration crisis or financial instability.
 
-Nevertheless, it remains an open question how populism, both right- and left-wing, evolved in
-the face of the growing urgency and medial discourse of the climate crisis. his
-is precisely where the present research project sets in.
+Nevertheless, it remains an open question how populism, both right- and left-wing, evolved in the face of the growing urgency and medial discourse of the climate crisis. This is precisely where the present research project sets in.
 
 # Research Design
 
@@ -97,68 +96,18 @@ In total, the initial API query returned over 87,000 articles. To refine the dat
 
 Unnecessary metadata and variables delivered by the API were removed, and articles categorized under rubrics containing the term “international” were excluded, as the study focuses exclusively on environmental discourse within the Swiss national context. After applying these filters, the final dataset consisted of approximately 15,000 articles. From this corpus, a random sample of 2,500 articles was drawn. The analysis is conducted on this subset, which is considered representative of the overall sample and sufficient for drawing meaningful conclusions.
 
-```{r ref.label=knitr::all_labels()}
-#| echo: false
-#| eval: true
-
-data_combined_cleaned <- read.csv("01-Data/01-01-Data_Cleaned.csv", sep = ",", header = TRUE)
-
-errors <- data_combined_cleaned %>%
-  filter(is.na(relevance)) 
-
-summary_errors <- errors %>%
-  summarise(
-    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
-    `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
-    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
-    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
-    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
-  ) %>% t() %>% as.data.frame()
-
-summary_correct <- data_combined_cleaned %>%
-  filter(!is.na(relevance)) %>%
-  summarise(
-    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
-    `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
-    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
-    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
-    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
-  ) %>% t() %>% as.data.frame()
-
-comparison_table <- cbind(summary_errors, summary_correct)
-colnames(comparison_table) <- c("Errors", "Valid Articles")
-comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
-
-```
-
-```{r}
-#| echo: true
-#| eval: true
-
-comparison_table %>%
-  gt() %>%
-  tab_header(
-    title = "Comparison of Article Stats: Errors vs. Valid"
-  )
-
-```
-
 ## Methods
 
 ### Quantitative Text Analysis via Open AI API
 
-For the qualitative coding of populist framing and party positioning, the Open AI API (version 4.0) was used. Articles were evaluated based on a set of categories developed in collaboration with the model. This framework allows for systematic comparison of populist discourses across parties and enables the identification of distinct rhetorical patterns in environmental narratives.
+For the qualitative coding of populist framing and party positioning, the Open AI API (version 4.0) [@openai_chatgpt_nodate] was used. Articles were evaluated based on a set of categories developed in collaboration with the model. This framework allows for systematic comparison of populist discourses across parties and enables the identification of distinct rhetorical patterns in environmental narratives.
 
-*Table 1: Categorization system*
+*Table 1: Category system*
 
 <div>
 
 | **Category** | **Code** | **Description** |
-|------------------------|------------------------|------------------------|
+|------------------------|-------|------------------------|
 | **Relevance** | 1 | Relevant: Article discusses Swiss environmental politics |
 |  | 0 | Not relevant |
 | **Political Party Mentioned** | 1 | SVP (Swiss People's Party) |
@@ -192,8 +141,6 @@ For the qualitative coding of populist framing and party positioning, the Open A
 
 </div>
 
-### 
-
 #### **Prompt Design**
 
 The first step in the process was the design of a prompt aimed at guiding Open AI through the task of analyzing each article. The goal was to ensure that the model can systematically and clearly handle each article, following a step-by-step process. The prompt, which is available in *Appendix A*, was written in simple language and divided into distinct tasks. The prompt consists of five main tasks from the category system as presented in the previous chapter.
@@ -218,15 +165,80 @@ This adjusted process ran for approximately three hours and reduced the error ra
 
 ### Validation of results
 
-#### Manual verification 
+#### Manual verification
 
-To verify the classification provided by the OpenAI API, 20 successfully analyzed articles (i.e., non-error cases) were randomly selected and saved in Excel format as a verification sample. For this verification, the articles were manually coded based on the same instructions that had been used for the OpenAI classification, following the categorization system presented in Table 1.
+To verify the classification provided by the OpenAI API, 20 successfully analyzed articles (non-error cases) were randomly selected and saved in Excel format as a verification sample. For this verification, the articles were manually coded based on the same instructions that had been used for the OpenAI classification, following the categorization system presented in Table 1.
 
-Before checking the OpenAI results, I coded the articles myself to avoid bias. In the final step, I compared my manual categorization with the one provided by OpenAI. Seventeen out of twenty articles were classified identically. The remaining three differed, but all of them were only marginally relevant to environmental politics, as they either did not mention specific political parties or referred to multiple parties without clear alignment—making them less significant for the analysis.
+Before checking the OpenAI results, I coded the articles myself to avoid bias. In the final step, I compared my manual categorization with the one provided by OpenAI. Seventeen out of twenty articles were classified identically. The remaining three differed, but all of them were only marginally relevant to environmental politics, as they either did not mention specific political parties or referred to multiple parties without clear alignment, making them less significant for the analysis.
 
-One notable exception involved an article written by an SVP National Council member, who argued in favor of environmentally friendly agricultural policy without using any populist rhetoric. OpenAI did not correctly identify the author's affiliation, likely because it was only mentioned in the final sentence of the article. While this misclassification does not undermine the overall results, it provides an important insight for future analyses: in articles from newspapers—where guest authorships are common—it may be necessary to pay special attention to the author’s identity.
+One notable exception involved an article written by an SVP National Council member, who argued in favor of environmentally friendly agricultural policy without using any populist rhetoric. OpenAI did not correctly identify the author's affiliation, likely because it was only mentioned in the final sentence of the article. While this misclassification does not undermine the overall results, it provides an important insight for future analyses: in articles from newspapers, where guest authorships are common, it may be necessary to pay special attention to the author’s identity.
 
 #### Analysis of API errors
+
+As the original sample of 2,500 articles was reduced to an actually analyzed sample of 1,969 articles, it is important to investigate the reasons behind this reduction. Understanding the cause is crucial, as it may limit the generalizability of the results to the full population. Therefore, I conducted an analysis of key indicators comparing the error sample with the valid sample, as presented in *Table 2*. A striking difference is the average word count, which is nearly twice as high in the error sample compared to the valid one. The same pattern applies to the average character count. In the error sample, 65% of the articles contain more than 1,000 words, and 91% exceed 800 words. In contrast, within the valid sample, 87% of the articles are under 1,000 words, and 63% fall below 800 words.
+
+These results suggest that some of the articles were likely too long or complex for the API to analyze effectively. However, given that a large portion of the valid articles still exceeded 800 words, and considering that the distribution of publication years (before and after 2020) is similar across both groups, I conclude that the analysis still provides valuable and largely generalizable insights. Nonetheless, caution is advised when interpreting and generalizing the findings.
+
+Furthermore, it was discovered that several duplicates, meaning the same articles but published from different newspapers, existed in the sample. However, in all cases, except for one, only the first instance of each duplicate was successfully analyzed, while the second instance resulted in an error. In one exceptional case, the duplicate was actually coded differently. Upon review, it became clear that this specific article focused on a legislative proposal in which multiple parties, particularly the SVP and the Greens, played a role, though the SVP was more dominant. As a result, I removed the second (incorrect) categorization under the Greens and documented this as the only such case. All other duplicates were either coded identically, which suggests that the model produces consistent results, or the second version triggered an error, which does not bias the results and further supports the model’s robustness. A key takeaway from this finding is the importance of removing duplicates **before** running the analysis through the OpenAI API to avoid potential inconsistencies or unnecessary errors.
+
+```{r ref.label=knitr::all_labels()}
+#| echo: false
+#| eval: true
+setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues/01-Data")
+data_combined_cleaned <- read.csv("01-01-Data_Cleaned.csv", sep = ",", header = TRUE)
+
+errors <- data_combined_cleaned %>%
+  filter(is.na(relevance)) 
+
+summary_errors <- errors %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Articles before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles from 2020 onward` = sum(year >= 2020, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>%
+  t() %>%
+  as.data.frame()
+
+# Summarize valid articles
+summary_correct <- data_combined_cleaned %>%
+  filter(!is.na(relevance)) %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
+    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Articles before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles from 2020 onward` = sum(year >= 2020, na.rm = TRUE),
+    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+  ) %>%
+  t() %>%
+  as.data.frame()
+
+# Combine summaries into one comparison table
+comparison_table <- cbind(summary_errors, summary_correct)
+colnames(comparison_table) <- c("Errors", "Valid Articles")
+comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
+```
+
+```{r}
+#| echo: false
+#| eval: true
+
+comparison_table %>%
+  gt() %>%
+  tab_header(
+    title = "Comparison of Article Stats: Errors vs. Valid"
+  )
+
+```
 
 # Results
 
@@ -245,10 +257,102 @@ What have we learned from this work (at best: and what not)? What would be next 
 ::: {#refs}
 :::
 
-# Appendix {.unnumbered}
+# Appendix A: Prompt {.unnumbered}
 
-```{r ref.label=knitr::all_labels()}
-#| echo: true
-#| eval: false
+You are an expert in political discourse analysis with knowledge of Swiss politics.
 
-```
+Classify the article according to the following 6 variables. If unclear or not applicable, use `99`.
+
+1.  relevance: Does it discuss Swiss environmental politics?
+
+-   0 = No
+-   1 = Yes
+
+\# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "1"
+
+\# Example 2: "Um die Finanzierung der AHV wird heftig gerungen. In der ständerätlichen Sozialkommission kommt es nun zum Showdown. Die Rechte versucht, einen Mitte-Links-Deal zu verhindern. Blick erklärt, worum es geht." --\> "0"
+
+2.  party: If relevance = 1, which party is mentioned?
+
+-   1 = SVP
+-   2 = JSVP
+-   3 = GPS
+-   4 = Junge Grüne
+-   99 = None/Other
+
+If several parties in the list (1-4) are mentioned please pick the pre-dominant one and use the provided code.
+
+\# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "1"
+
+\# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative."" --\> "4"
+
+3.  support: Does the party support the environmental issue?
+
+-   1 = Support
+
+-   2 = Oppose
+
+-   99 = Unclear/Not applicable
+
+    \# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "2" \# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative."" --\> "1"
+
+4.  discourse: Tone of party framing
+
+-   1 = Very pluralistic
+
+-   2 = Rather pluralistic
+
+-   3 = Neutral
+
+-   4 = Rather populistic
+
+-   5 = Very populistic
+
+-   99 = Not applicable
+
+    \# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "4 - rather populistic" because of the word "Panikmache"
+
+    \# Example 2: "Die Jungen Grünen holten neben ihrer Mutterpartei auch die SP, Juso, zahlreiche Umweltorganisationen wie Greenpeace und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative." --\> "2 - rather pluralistic" because different interset groups are mentioned
+
+    5\. elite: If discourse = 4 or 5, how is "the elite" portrayed?
+
+<!-- -->
+
+-   1 = Government/politicians
+
+-   2 = Corporations/business
+
+-   3 = Media
+
+-   4 = Intellectuals
+
+-   5 = International organisations
+
+-   6 = NGOs
+
+-   99 = Other, not applicable
+
+    \# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "99"
+
+    \# Example 2: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft stärken, statt sie mit neuen Regeln zu belasten." --\> "6 - Environmental activists / NGOs""
+
+6.  people: How is “the people” described?
+
+-   1 = Swiss population
+-   2 = Workers
+-   3 = Rural communities
+-   4 = Traditionalists
+-   5 = Small businesses
+-   6 = Farmers
+-   99 = Other/not applicable
+
+\# Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP, die Taktik zu ändern?" --\> "99"
+
+\# Example 2: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemacht: «Wir lassen uns von Klima-Apokalyptikern nicht vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft stärken, statt sie mit neuen Regeln zu belasten." --\> "6"
+
+Respond with the 6 numbers only, separated by spaces. No extra text.
+
+Example:\
+`1 1 2 4 6 1`
+
+Article:

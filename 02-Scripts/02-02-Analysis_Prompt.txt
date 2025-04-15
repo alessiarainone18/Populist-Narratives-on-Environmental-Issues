@@ -40,7 +40,7 @@ die Taktik zu ändern?" --> "2"
 und die Klimaseniorinnen sowie die Kleinbauern-Vereinigung an Bord. Zudem unterstützen 83 Schweizer Wissenschaftlerinnen und Wissenschaftler in einer gemeinsamen Erklärung die Initiative.""
 --> "1"
 
-4. discourse: Tone of party framing (if party = 1 or 2)
+4. discourse: Tone of party framing 
   - 1 = Very pluralistic
   - 2 = Rather pluralistic
   - 3 = Neutral
@@ -58,7 +58,6 @@ Example 3: "Die SVP hat heute ihr Umweltprogramm vorgestellt und dabei klargemac
 vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
 stärken, statt sie mit neuen Regeln zu belasten." --> "5 - very populistic"
 
-
 5. elite: If discourse = 4 or 5, how is "the elite" portrayed?
   - 1 = Government/politicians
   - 2 = Corporations/business
@@ -67,6 +66,7 @@ stärken, statt sie mit neuen Regeln zu belasten." --> "5 - very populistic"
   - 5 = International organisations
   - 6 = NGOs
   - 99 = Other, not applicable
+  
 # Example 1: "Während Tausende auf den Strassen für mehr Klimaschutz demonstrieren, spricht SVP-Präsident Albert Rösti von
 «Panikmache». Die Diskussion rund um Umweltproblematik hat im Wahljahr aber an Fahrt zugenommen. Ist es nun Zeit für die SVP,
 die Taktik zu ändern?" --> "99"
@@ -74,7 +74,7 @@ die Taktik zu ändern?" --> "99"
 vorschreiben, wie wir zu leben haben!» Die Partei setzt auf Eigenverantwortung statt «Zwangsverzicht» und will die Schweizer Landwirtschaft
 stärken, statt sie mit neuen Regeln zu belasten." --> "6 - Environmental activists / NGOs""
 
-6. people: How is “the people” described?
+6. people: If discourse = 4 or 5, how is “the people” described?
   - 1 = Swiss population
   - 2 = Workers
   - 3 = Rural communities
