@@ -113,6 +113,9 @@ comparison_table %>%
 data_correct_merged <- merged_recoded_cleaned %>%
   filter(!is.na(relevance)) 
 
+write.csv(data_correct_merged, "01-Data/01-03-Data_Cleaned_Valid.csv", row.names = FALSE)
+
+
 # Errors have almost double as much wordcount and char_count. Probably too long articles to 
 # analyze for API why it failed. Not clear if errors occurred more often in the end of the analysis,
 # since average article_nr is similar in both cases. Cause is most probably the length of articles. 
