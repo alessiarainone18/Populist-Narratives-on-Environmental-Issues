@@ -12,6 +12,8 @@ analysis_prompt <- read_lines("02-Scripts/02-02-Analysis_Prompt.txt") %>% paste(
 api_key <- trimws(readLines("00-Planning/00_02_API/OpenAI/openai_key.txt"))
 
 # Step 2: Load and prepare articles
+
+# Real sample -------------------------------------------------------------
 data <- read.csv("01-Data/random_sample_2500.csv", sep = ",", header = TRUE)
 
 filtered_data <- data %>%
@@ -39,7 +41,15 @@ articles <- filtered_data %>%
 #          content = as.character(content))
 # 
 
-# Real sample ----
+# Error sample ------------------------------------------------------------
+# Run error sample again to see if it still doesn't work
+data <- read.csv("03-Output/03-03-Data_Errors.csv", sep = ",", header = TRUE)
+articles <- data %>%
+  select(-chatgpt_response, -relevance, -party, -support, -discourse, - elite, -people) %>%
+  mutate(article_nr = 1:n(),
+  content = as.character(content))
+
+# Analysis ----
 # Step 3: Initialize response vector (slow)
 chatgpt_responses <- vector("character", length = nrow(articles))
 
@@ -128,9 +138,7 @@ results_split %>% count(code_5)
 results_split %>% count(code_6)
 
 # Save as CSV
-write_csv(results_split, "03-Output/03-01-article_analysis_results_FINAL2.csv")
-
-
+write_csv(results_split, "03-Output/03-01-article_analysis_results_ERRORS.csv")
 
 # Error analysis
 data_output <- results_split

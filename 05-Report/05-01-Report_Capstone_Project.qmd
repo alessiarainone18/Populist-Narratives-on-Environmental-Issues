@@ -3,8 +3,7 @@ title: "Populist Narratives on Environmental Issues in the Media: A Discourse An
 subtitle: "Capstone Project in Data Mining and Large Language Models for Political and Social Sciences"
 author: 
   - "Alessia Rainone, alessia.rainone@stud.unilu.ch, 20-118-808"
-  - "Supervisor: Prof. Dr. Andrea De Angelis"
-  - "Number of words: 4020"
+  - "Supervisor: Dr. Andrea De Angelis"
 lang: en
 date: today
 date-format: "D. MMMM YYYY"
@@ -31,8 +30,8 @@ execute:
 knitr:
   opts_chunk:
     message: false
-lof: true
-lot: true
+lof: false
+lot: false
 ---
 
 ```{r}
@@ -48,13 +47,13 @@ library(gt)
 
 # Abstract {.unnumbered}
 
-This project attempts to answer the question *how Swiss parties present themselves in populist discourses on environmental issues in Swiss mainstream media* focusing on the Swiss People's Party (SVP) and the Green Party. The project conducts a quantitative discourse analysis using a Large Language Model to explore how the SVP and the Green Party engage with populist rhetoric when addressing environmental topics. The aim is to understand how both parties construct their narratives and how they position themselves in context of "the people" and elites.
+This project attempts to answer the question *how Swiss parties present themselves in populist discourses on environmental issues in Swiss mainstream media* focusing on the Swiss People's Party (SVP) and the Green Party. The project conducts a quantitative discourse analysis using a Large Language Model to explore how the Swiss People's Party and the Green Party engage with populist rhetoric when addressing environmental topics. The aim is to understand how both parties construct their narratives and how they position themselves in context of "the people" and elites.
 
 # Introduction
 
 Over the past decade, environmental issues, especially those linked to climate change, have become central to political discourse around the world. In Switzerland, as in many other democracies, these topics are not only the subject of policy debates but are also much discussed in the daily media. Political parties across the ideological spectrum use media platforms to frame environmental concerns in ways that reflect their political agendas and mobilize their voter bases. This research project examines how the Swiss People’s Party (SVP), as a representative right-wing party, and the Green Party, as a representative left-wing party, engage in populist discourse on environmental issues in Swiss media.
 
-This question is especially relevant in today’s polarized political climate, where environmental policies often become battlegrounds for broader ideological conflicts [@mccright_cool_2011]. Previous research (e.g. @kulin_rightwing_2024) has shown that right-wing populism tends to foster climate skepticism, whereas left-wing populism more often supports environmental action [@march_left_2017] These differences result from how each variant of populism defines “the elite” and “the people”. Understanding how such dynamics play out in the media landscape can shed light on the role of political communication in shaping public attitudes toward climate policy.
+This question is especially relevant in today’s polarized political climate, where environmental policies often become battlegrounds for broader ideological conflicts [@mccright_cool_2011]. Previous research (e.g. @kulin_rightwing_2024) has shown that right-wing populism tends to foster climate skepticism, whereas left-wing populism more often supports environmental action. These differences result from how each variant of populism defines “the elite” and “the people” [@march_left_2017]. Understanding how such dynamics play out in the media landscape can shed light on the role of political communication in shaping public attitudes toward climate policy.
 
 Thus, this explorative research project investigates the following question: *How do the Swiss People's Party (SVP) and the Green Party present themselves in populist discourses on environmental issues, and how do their narratives differ?*
 
@@ -66,11 +65,11 @@ The entire project workflow was documented using version control via GitHub unde
 
 Populism can be defined in different ways, with several theoretical frameworks attempting to conceptualize it. @mudde_populist_2004 [p. 543] defines populism as “*an ideology that ultimately divides society society into two homogeneous and antagonistic groups: 'the pure people' versus 'the corrupt elite', and which argues that politics is an expression of the volonté générale (general will) of the people.*” Populism is usually described as a rather “thin” ideology because it is mainly concerned with the dichotomy between “the people” and “the elite”. The 'thin' nature of populism means that it cannot be used as a stand-alone political agenda, but must be combined with a so-called 'host' ideology to form a broader political platform. These 'host' ideologies, often referred to as 'thick' ideologies, provide the essential content of the political agenda.
 
-Depending on the host ideology, populism can take different forms and agendas [@mudde_studying_2018]. This distinction is particularly important when it comes to the relationship between populism and political ideologies, e.g. party-specific populism. In this context, left-wing and right-wing populism differ significantly in their used rhetoric due to their definition of “the people”. Left-wing populism generally defines “the people” in class-specific terms, focusing on issues of economic exploitation and advocating greater state intervention in the economy and a redistribution of wealth. Right-wing populism, on the other hand, often defines 'the people' in cultural terms [@mudde_exclusionary_2013] and focuses on nationalism, nativism and traditionalism. In contrast, left-wing populists generally tend to support international cooperation, while right-wing populists emphasize national sovereignty and are often skeptical of, if not openly hostile to, supranational institutions [@march_left_2017].
+Depending on the host ideology, populism can take different forms and agendas [@mudde_studying_2018]. This distinction is particularly important when it comes to the relationship between populism and political ideologies, e.g. party-specific populism. In this context, left-wing (e.g. "green") and right-wing populism differ significantly in their used rhetoric due to their definition of “the people”. Left-wing populism generally defines “the people” in class-specific terms, focusing on issues of economic exploitation and advocating greater state intervention in the economy and a redistribution of wealth. Right-wing populism, on the other hand, often defines 'the people' in cultural terms [@mudde_exclusionary_2013] and focuses on nationalism, nativism and traditionalism. Left-wing populists, on the other hand, generally tend to support international cooperation, while right-wing populists emphasize national sovereignty and are often skeptical of supranational institutions [@march_left_2017].
 
 ### Rise of Populism
 
-The rise of right-wing populism has become increasingly evident in recent years. On January 20th, 2025, Donald Trump signed an the withdrawal from the Paris Climate Agreement. He justified the decision by stating that he would "put America first," calling the agreement a "green new scam" for the United States [@noor_trump_2025]. Trump is widely recognized as a representative of right-wing populism, which is reflected in both his rhetoric and political agenda [@winberg_insult_2017]. Right-wing populist movements have also gained momentum across Europe. In September 2022, Giorgia Meloni became Prime Minister of Italy [@kirby_giorgia_2022]. In France, Marine Le Pen narrowly lost the second round of the presidential election in July 2024, despite her party leading in the first round [@caulcutt_french_2024]. In Switzerland, the 2023 federal elections marked a clear shift to the right, with a significant increase in support for the Swiss People’s Party (SVP) [@pauchard_right-wing_2024]. In Germany, the the far-right Alternative für Deutschland (AfD) reached over 20% of the vote in the February 2025 elections, a 10% increase compared to the previous election [@noauthor_bundestagswahl_2025].
+The rise of right-wing populism has become increasingly evident in recent years. On January 20th, 2025, Donald Trump signed an the withdrawal from the Paris Climate Agreement. He justified the decision by stating that he would "put America first," calling the agreement a "green new scam" for the United States [@noor_trump_2025]. Trump is widely recognized as a representative of right-wing populism, which is reflected in both his rhetoric and political agenda [@winberg_insult_2017]. Right-wing populist movements have also gained momentum across Europe. In September 2022, Giorgia Meloni became Prime Minister of Italy [@kirby_giorgia_2022]. In France, Marine Le Pen narrowly lost the second round of the presidential election in July 2024, despite her party leading in the first round [@caulcutt_french_2024]. In Switzerland, the 2023 federal elections marked a clear shift to the right, with a significant increase in support for the populist Swiss People’s Party (SVP) [@pauchard_right-wing_2024]. In Germany, the the right-wing populist party Alternative für Deutschland (AfD) reached over 20% of the vote in the February 2025 elections, a 10% increase compared to the previous election [@noauthor_bundestagswahl_2025].
 
 However, left-wing populism is also gaining renewed traction. In Germany, for example, the left-wing populist party Die Linke, which is also classified as populist in various academic sources secured a vote gain of nearly 4%, with notable support among younger voters. This success has been attributed to a campaign strategy that emphasized simple language, a strong presence on social media, and effective populist language [@kubina_linke_2025].
 
@@ -86,15 +85,15 @@ Nevertheless, it remains an open question how populism, both right- and left-win
 
 ## Data Collection
 
-The newspaper articles used in this study were collected via an API provided by *Swissdox*, a media archive platform hosted by the University of Zurich. Swissdox offers access to a comprehensive collection of Swiss print and online newspapers dating back over 50 years. The platform provides API documentation that enables users to programmatically access its database. As the API documentation was originally written in Python, it was necessary to translate the process into R. This step was supported by the language model ChatGPT-4.0, which assisted in adapting the example code provided in the documentation into functional R code.
+The newspaper articles used in this study were collected via an API provided by *Swissdox* [@universitat_zurich_swissdox_2025], a media archive platform hosted by the University of Zurich. Swissdox offers access to a comprehensive collection of Swiss print and online newspapers dating back over 50 years. The platform provides API documentation that enables users to programmatically access its database. As the API documentation was originally written in Python, it was necessary to translate the process into R. This step was supported by the language model ChatGPT-4.0 [@openai_chatgpt_nodate], which assisted in adapting the example code provided in the documentation into functional R code.
 
-Following a successful test run using the example API call, a custom API query was developed. This query included specific parameters, such as a keyword filter consisting of 35 German-language terms related to climate and environmental issues. The list of keywords was initially generated with the help of ChatGPT and subsequently reviewed for thematic relevance.
+Following a successful test run using the example API call, a custom API query was developed (see file *02-00-API_code_Swissdox.R*). This query included specific parameters, such as a keyword filter consisting of 35 German-language terms related to climate and environmental issues. The list of keywords was initially generated with the help of ChatGPT and subsequently reviewed for thematic relevance.
 
 To narrow the scope to mainstream media coverage, the data collection was restricted to German-language articles from the following major Swiss news outlets: *Neue Zürcher Zeitung (NZZ)*, *20 Minuten*, *Blick*, *SRF*, and *Tages-Anzeiger*. While the initial time frame spanned 15 years (2009–2024), it was later restricted to the last 10 years (2014–2024), as it became apparent that some media sources only began contributing to the Swissdox archive several years after 2009.
 
-In total, the initial API query returned over 87,000 articles. To refine the dataset and focus more specifically on the relevant unit of analysis, several filtering steps were applied. First, articles were manually filtered based on keywords referring to the Swiss People’s Party (SVP) and the Green Party, such as “SVP” and “Grüne.” In addition, only articles with a length between 300 and 2,000 words were retained to ensure a sufficient level of content for analysis while excluding overly short or excessively long texts.
+In total, the initial API query returned over 87'000 articles. To clean the dataset and focus more specifically on the relevant unit of the analysis, several filtering steps were applied. First, articles were manually filtered based on different keywords referring to the Swiss People’s Party (SVP) and the Green Party, such as “SVP” and “Grüne”. Furthermore, only articles with a length between 300 and 2'000 words were retained to ensure a sufficient level of content for analysis while excluding overly short or excessively long texts.
 
-Unnecessary metadata and variables delivered by the API were removed, and articles categorized under rubrics containing the term “international” were excluded, as the study focuses exclusively on environmental discourse within the Swiss national context. After applying these filters, the final dataset consisted of approximately 15,000 articles. From this corpus, a random sample of 2,500 articles was drawn. The analysis is conducted on this subset, which is considered representative of the overall sample and sufficient for drawing meaningful conclusions.
+Unnecessary meta-variables delivered by the API were removed, and articles categorized under rubrics containing the term “international” were excluded, as the study focuses exclusively on environmental discourse within the Swiss national context. After applying these filters, the final dataset consisted of approximately 15'000 articles. From this corpus, a random sample of 2,500 articles was drawn. The analysis is conducted on this subset, which is considered representative of the overall article population.
 
 ## Methods
 
@@ -145,23 +144,23 @@ For the qualitative coding of populist framing and party positioning, the Open A
 
 The first step in the process was the design of a prompt aimed at guiding Open AI through the task of analyzing each article. The goal was to ensure that the model can systematically and clearly handle each article, following a step-by-step process. The prompt, which is available in *Appendix A*, was written in simple language and divided into distinct tasks. The prompt consists of five main tasks from the category system as presented in the previous chapter.
 
-For each task and subtask, a corresponding code is provided. Additionally, a fallback code of 99 was introduced for instances where none of the categories apply, as the dataset still includes a significant number of irrelevant articles. This prompt was initially tested within the ChatGPT 4.0 interface using a clearly populist article about the SVP. To ensure robustness, a set of randomly selected articles was also tested to identify any issues with the prompt's functionality. In cases where the prompt performed poorly, these examples were highlighted under each task to clarify for the AI how to proceed. Once the prompt was deemed sufficiently accurate, it was applied to the API for further testing.
+For each task and subtask, a corresponding code is provided. Additionally, a fallback code of 99 was introduced for instances where none of the categories apply, as the dataset still includes a significant number of irrelevant articles. This prompt was initially tested within the ChatGPT 4.0 interface using a clearly populist article about the SVP. To ensure robustness, a set of randomly selected articles was also tested to identify any issues with the prompt's functionality. In cases where the prompt performed poorly, these examples were highlighted under each task to clarify for the AI how to proceed. Once the prompt was performing sufficiently accurate, it was applied to the API for further testing.
 
 #### **Testing Phase and Methodological Adjustments**
 
 The testing phase was crucial to the success of the later analysis and therefore constituted the most important and time-consuming part of this project. An exploratory approach was taken: initially, ten articles were randomly selected and processed via the API. The first attempt failed significantly, as the output was delivered in an unstructured text file and lacked language consistency.
 
-In response, the prompt was revised to clearly specify that only the six-digit codes should be returned after each analysis. Additionally, many articles were not processed at all due to an “error” that could not be identified at the time. Another issue was that all articles were categorized as irrelevant—an unrealistic result. A brief manual review revealed that at least half of the articles should have been classified as relevant to Swiss environmental politics, indicating a fundamental problem with the prompt setup.
+In response, the prompt was revised to clearly specify that only the six-digit codes should be returned after each analysis. Additionally, many articles were not processed at all due to an “error” that could not be identified at the time. Another issue was that all articles were categorized as irrelevant, an unrealistic result for a sample of 10. A brief manual review revealed that at least half of the articles should have been classified as relevant to Swiss environmental politics, indicating a fundamental problem with the API setup.
 
-In the second step, clearly relevant articles containing populist discourse were deliberately included in the test sample, identified through keyword searches. The same process was repeated, but this time the API code was optimized using GPT-4.0 to ensure the results were directly output as a DataFrame with the six codes clearly assigned to variables. This setup functioned technically, but again, all articles were classified under category 99.
+In the second step, clearly relevant articles containing populist discourse were included in the test sample, identified through keyword searches. The same process was repeated, but this time the API code was optimized using GPT-4.0 to ensure the results were directly output as a DataFrame with the six codes clearly assigned to variables. This setup functioned technically, but again, all articles were classified under category 99.
 
-Following further adjustments to both the API code and the prompt, six additional tests were conducted—each of which failed. A new approach was then tested: removing the rigid text formatting and instructing the model simply to return the codes (Tests 9–11). This method worked considerably better and was ultimately used for the full sample of 2,500 articles.
+Following further adjustments to both the API code and the prompt, six additional tests were conducted, each of which failed. A new approach was then tested: removing the rigid text formatting and instructing the model simply to return the codes (Tests 9–11). This method worked considerably better and was ultimately used for the full sample.
 
-The analysis of these 2,500 articles took only a few minutes but initially resulted in a 90% error rate (Error 410). After a brief investigation, it became clear that the API was overwhelmed by too many requests in too short a time. To address this, the request rate was slowed down. In addition, the length of the text inputs was reduced by removing empty lines and block formatting. A further attempt included the removal of stop words, which reduced the average article length from approximately 800 to 500 words.
+Before running the API analysis, I identified and removed some duplicate articles, resulting in a final sample of 2,461 articles. Although the analysis itself only took a few minutes to run, it initially produced a high error rate of 90% (Error 410). After a brief investigation, it became clear that the API was overwhelmed by too many requests in too short a time. To address this, the request rate was slowed down. In addition, the length of the text inputs was reduced by removing empty lines and block formatting.
 
-However, a short test using four previously used, clearly relevant articles showed that they were still all categorized as 99, despite the identical code—leading to the abandonment of this strategy. Instead, the API requests were delayed using the `sys.sleep` function, and a retry mechanism was implemented that allowed failed articles to be reprocessed up to five times.
+A further attempt included the removal of stop words, which reduced the average article length from approximately 800 to 500 words. However, a short test using four previously used, clearly relevant articles showed that they were still all categorized as 99, despite the identical code, leading to the abandonment of this strategy.
 
-This adjusted process ran for approximately three hours and reduced the error rate by only 20% compared to earlier tests. Nevertheless, the analysis was considered *more or less* successful. To validate the results, two further steps followed: first, a manual verification of selected article categorizations; second, an analysis of the articles that consistently returned errors.
+Instead, the API requests were delayed using the `sys.sleep` function, and a retry mechanism was implemented that allowed failed articles to be reprocessed up to three times. This adjusted process ran for approximately three hours and reduced the error rate by only 15% (317 articles) compared to earlier tests. The articles that caused errors were run again to minimize the potential bias of representativity. Still, a total of 203 errors occurred, representing 8% of the overall sample. Despite this, the analysis was considered successful. To ensure the validity of the results, two additional steps were taken: first, a manual verification of selected article categorizations; and second, an analysis of the articles that consistently triggered errors.
 
 ### Validation of results
 
@@ -175,49 +174,41 @@ One notable exception involved an article written by an SVP National Council mem
 
 #### Analysis of API errors
 
-As the original sample of 2,500 articles was reduced to an actually analyzed sample of 1,969 articles, it is important to investigate the reasons behind this reduction. Understanding the cause is crucial, as it may limit the generalizability of the results to the full population. Therefore, I conducted an analysis of key indicators comparing the error sample with the valid sample, as presented in *Table 2*. A striking difference is the average word count, which is nearly twice as high in the error sample compared to the valid one. The same pattern applies to the average character count. In the error sample, 65% of the articles contain more than 1,000 words, and 91% exceed 800 words. In contrast, within the valid sample, 87% of the articles are under 1,000 words, and 63% fall below 800 words.
+As the original sample of 2'500 articles was reduced to an actually analyzed sample of 1,969 articles, it is important to investigate the reasons behind this reduction. Understanding the cause is crucial, as it may limit the generalizability of the results to the full population. Therefore, I conducted an analysis of key indicators comparing the error sample with the valid sample, as presented in *Table 2*. A striking difference is the average word count, which is nearly twice as high in the error sample compared to the valid one. The same pattern applies to the average number of characters. In the error sample, 83% of the articles contain more than 1,000 words, while in the valid sample this figure is 15%.
 
-These results suggest that some of the articles were likely too long or complex for the API to analyze effectively. However, given that a large portion of the valid articles still exceeded 800 words, and considering that the distribution of publication years (before and after 2020) is similar across both groups, I conclude that the analysis still provides valuable and largely generalizable insights. Nonetheless, caution is advised when interpreting and generalizing the findings.
-
-Furthermore, it was discovered that several duplicates, meaning the same articles but published from different newspapers, existed in the sample. However, in all cases, except for one, only the first instance of each duplicate was successfully analyzed, while the second instance resulted in an error. In one exceptional case, the duplicate was actually coded differently. Upon review, it became clear that this specific article focused on a legislative proposal in which multiple parties, particularly the SVP and the Greens, played a role, though the SVP was more dominant. As a result, I removed the second (incorrect) categorization under the Greens and documented this as the only such case. All other duplicates were either coded identically, which suggests that the model produces consistent results, or the second version triggered an error, which does not bias the results and further supports the model’s robustness. A key takeaway from this finding is the importance of removing duplicates **before** running the analysis through the OpenAI API to avoid potential inconsistencies or unnecessary errors.
+These results suggest that some of the articles were likely too long or complex for the API to analyze effectively. However, given that also the distribution of publication years (before and after 2020) is similar across both groups, I conclude that the analysis still provides valuable and largely generalizable insights. Nonetheless, caution is advised when interpreting and generalizing the findings.
 
 ```{r ref.label=knitr::all_labels()}
 #| echo: false
 #| eval: true
 setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues/01-Data")
-data_combined_cleaned <- read.csv("01-01-Data_Cleaned.csv", sep = ",", header = TRUE)
+data_combined_cleaned <- read.csv("01-02-Data_Cleaned.csv", sep = ",", header = TRUE) # overall sample
 
-errors <- data_combined_cleaned %>%
+errors <- data_combined_cleaned   %>%
   filter(is.na(relevance)) 
 
 summary_errors <- errors %>%
   summarise(
     `Mean Word Count` = mean(wordcount, na.rm = TRUE),
     `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
-    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
     `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
     `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Articles before 2020` = sum(year < 2020, na.rm = TRUE),
-    `Articles from 2020 onward` = sum(year >= 2020, na.rm = TRUE),
-    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
   ) %>%
   t() %>%
   as.data.frame()
 
 # Summarize valid articles
-summary_correct <- data_combined_cleaned %>%
+summary_correct <- data_combined_cleaned   %>%
   filter(!is.na(relevance)) %>%
   summarise(
     `Mean Word Count` = mean(wordcount, na.rm = TRUE),
     `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 800 Words` = sum(wordcount < 800, na.rm = TRUE),
-    `Articles ≥ 800 Words` = sum(wordcount >= 800, na.rm = TRUE),
     `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
     `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Articles before 2020` = sum(year < 2020, na.rm = TRUE),
-    `Articles from 2020 onward` = sum(year >= 2020, na.rm = TRUE),
-    `Mean Article Number` = mean(article_nr, na.rm = TRUE)
+    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
   ) %>%
   t() %>%
   as.data.frame()
@@ -244,13 +235,11 @@ comparison_table %>%
 
 Show results with plot, answer RQ
 
-# Discussion
-
-Discuss the results.
-
 # Conclusion
 
 What have we learned from this work (at best: and what not)? What would be next steps in this research?
+
+Word count: XX
 
 # Bibliography {.unnumbered}
 
