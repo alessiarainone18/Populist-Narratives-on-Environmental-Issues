@@ -106,7 +106,7 @@ For the qualitative coding of populist framing and party positioning, the Open A
 <div>
 
 | **Category** | **Code** | **Description** |
-|------------------------|-------|------------------------|
+|----------------------------|----------------|----------------------------|
 | **Relevance** | 1 | Relevant: Article discusses Swiss environmental politics |
 |  | 0 | Not relevant |
 | **Political Party Mentioned** | 1 | SVP (Swiss People's Party) |
@@ -145,6 +145,8 @@ For the qualitative coding of populist framing and party positioning, the Open A
 The first step in the process was the design of a prompt aimed at guiding Open AI through the task of analyzing each article. The goal was to ensure that the model can systematically and clearly handle each article, following a step-by-step process. The prompt, which is available in *Appendix A*, was written in simple language and divided into distinct tasks. The prompt consists of five main tasks from the category system as presented in the previous chapter.
 
 For each task and subtask, a corresponding code is provided. Additionally, a fallback code of 99 was introduced for instances where none of the categories apply, as the dataset still includes a significant number of irrelevant articles. This prompt was initially tested within the ChatGPT 4.0 interface using a clearly populist article about the SVP. To ensure robustness, a set of randomly selected articles was also tested to identify any issues with the prompt's functionality. In cases where the prompt performed poorly, these examples were highlighted under each task to clarify for the AI how to proceed. Once the prompt was performing sufficiently accurate, it was applied to the API for further testing.
+
+For the variable "party", in addition to the Green Party and the SVP, their respective youth partiex are also included. This was done to examine whether these younger branches might use even more populist language than their parent parties. Ultimately, these groups can be combined if necessary, so there is nothing to lose by including them separately. Additionally, the variable "support vs. opposition" is included to serve as a control, helping to determine whether populist language is more likely used in support of or in opposition to environmental policies. The variable "discourse" captures different styles ranging from pluralistic to populist, with an additional "neutral" category for articles written in a more balanced tone. The variables "elite" and "people" are only applied when an article is classified as rather or very populist, and they cover specific categories typically found in populist rhetoric.
 
 #### **Testing Phase and Methodological Adjustments**
 
