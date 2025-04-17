@@ -31,6 +31,7 @@ valid_data_filtered <- valid_data_filtered %>%
   )
 
 table(valid_data_filtered$party_group, valid_data_filtered$discourse)
+chisq.test(table(valid_data_filtered$party_group, valid_data_filtered$discourse))
 
 valid_data_filtered %>% filter(!is.na(discourse)) %>%
   group_by(party_group) %>%
@@ -56,26 +57,6 @@ ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y
     legend.position = "none" # Entfernt die Legende (falls nicht benötigt)
   )
 
-# People vs. Elite
-valid_data_filtered %>%
-  filter(discourse %in% c(4, 5),
-         !is.na(people)) %>%
-  count(party_group, people, elite) %>%
-  ggplot(aes(x = party_group, y = n, fill = factor(people))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Who is being addressed in populist discourse?",
-       y = "Count", x = "Party", fill = "People")
-
-valid_data_filtered %>%
-  filter(discourse %in% c(4, 5),
-         !is.na(elite)) %>%
-  count(party_group, people, elite) %>%
-  ggplot(aes(x = party_group, y = n, fill = factor(elite))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Who is seen as the Elite?",
-       y = "Count", x = "Party", fill = "Elite")
-
-chisq.test(table(valid_data_filtered$party_group, valid_data_filtered$discourse))
 
 valid_data_filtered <- valid_data_filtered %>%
   mutate(populistic = ifelse(discourse %in% c(4, 5), 1, 0))
@@ -95,8 +76,18 @@ valid_data_filtered <- valid_data_filtered %>%
   )
 
 # Logit Model
-glm(populistic ~ party_group + support_dummy, data = valid_data_filtered, family = "binomial") %>%
-  summary()
+logit_model <- glm(populistic ~ party_group + support_dummy, data = valid_data_filtered, family = "binomial") 
+summary(logit_model)
+
+
+stargazer(model,
+          type = "text",
+          title = "Logistic Regression: Populist Discourse",
+          dep.var.labels = "Populistic (1 = populist)",
+          covariate.labels = c("SVP", "Support"),
+          omit.stat = c("ll", "aic"),
+          no.space = TRUE)
+
 
 
 
@@ -158,3 +149,24 @@ fviz_mca_biplot(mca_result,
   theme(
     text = element_text(color = "black")  
   )
+
+
+# People vs. Elite
+mca_data %>%
+  filter(discourse_factor %in% c("rather populistic", "very populistic"),
+         !is.na(people_factor)) %>%
+  count(party_group, people_factor, elite_factor) %>%
+  ggplot(aes(x = party_group, y = n, fill = factor(people_factor))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Who is being addressed in populist discourse?",
+       y = "Count", x = "Party", fill = "People")
+
+mca_data %>%
+  filter(discourse_factor %in% c("rather populistic", "very populistic"),
+         !is.na(elite_factor)) %>%
+  count(party_group, people_factor, elite_factor) %>%
+  ggplot(aes(x = party_group, y = n, fill = factor(elite_factor))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Who is seen as the Elite?",
+       y = "Count", x = "Party", fill = "Elite")
+
