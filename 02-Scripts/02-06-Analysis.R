@@ -24,8 +24,8 @@ valid_data_filtered <- valid_data %>%
 valid_data_filtered <- valid_data_filtered %>%
   mutate(
     party_group = case_when(
-      party %in% c(1, 2) ~ "SVP",   # z.B. Grüne + Junge Grüne
-      party %in% c(3, 4) ~ "Greens",   # z.B. SVP + Junge SVP
+      party %in% c(1, 2) ~ "SVP",  
+      party %in% c(3, 4) ~ "Greens",   
       TRUE ~ as.character(party)         
     )
   )
@@ -50,11 +50,11 @@ ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y
        x = "Party Group") +
   theme_minimal() +
   theme(
-    text = element_text(size = 12), # Setzt die Textgröße auf 12
-    axis.text.x = element_text(angle = 45, hjust = 1), # Dreht die x-Achsen-Beschriftungen um 45 Grad
-    axis.title = element_text(size = 14), # Größere Achsentitel
-    plot.title = element_text(hjust = 0.5, size = 16), # Zentriert den Titel und setzt die Größe
-    legend.position = "none" # Entfernt die Legende (falls nicht benötigt)
+    text = element_text(size = 12), 
+    axis.text.x = element_text(angle = 45, hjust = 1), 
+    axis.title = element_text(size = 14), 
+    plot.title = element_text(hjust = 0.5, size = 16),
+    legend.position = "none" 
   )
 
 
