@@ -4,39 +4,30 @@ subtitle: "Capstone Project in Data Mining and Large Language Models for Politic
 author: 
   - "Alessia Rainone, alessia.rainone@stud.unilu.ch, 20-118-808"
   - "Supervisor: Dr. Andrea De Angelis"
-lang: en
 date: today
 date-format: "D. MMMM YYYY"
 format: 
   pdf:
     documentclass: scrreprt
     number-sections: true
-    toc: false
     toc-depth: 2
-    lot: false
-    include-in-header:
-      - text: |
-          \usepackage{authblk}
-          \usepackage{titling}
+    toc: false
 fontsize: 12pt
 linestretch: 1.5
 geometry: left=2.5cm,right=2.5cm,top=3cm,bottom=3cm
-citeproc: true
 bibliography: datamining.bib
-biblio-style: apalike
 execute:
   echo: false
   warning: false
 knitr:
   opts_chunk:
     message: false
-lof: false
-lot: false
 ---
 
 ```{r}
 #| echo: false 
 #| eval: true
+
 library(tidyverse)
 library(dplyr)
 library(knitr)
@@ -44,6 +35,64 @@ library(stargazer)
 library(gt)
 library(FactoMineR)
 library(factoextra)
+library(sjPlot)
+library(broom)
+library(kableExtra)
+
+setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
+data_combined_cleaned <- read.csv("01-Data/01-02-Data_Cleaned.csv", sep = ",", header = TRUE) # overall sample
+
+errors <- data_combined_cleaned   %>%
+  filter(is.na(relevance)) 
+
+summary_errors <- errors %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
+  ) %>%
+  t() %>%
+  as.data.frame()
+
+# Summarize valid articles
+summary_correct <- data_combined_cleaned   %>%
+  filter(!is.na(relevance)) %>%
+  summarise(
+    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
+    `Mean Character Count` = mean(char_count, na.rm = TRUE),
+    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
+    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
+    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
+    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
+  ) %>%
+  t() %>%
+  as.data.frame()
+
+# Combine summaries into one comparison table
+comparison_table <- cbind(summary_errors, summary_correct)
+colnames(comparison_table) <- c("Errors", "Valid Articles")
+comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
+
+valid_data <- read.csv("01-Data/01-03-Data_Cleaned_Valid.csv", sep = ",", header = TRUE) 
+
+valid_data_filtered <- valid_data %>%
+  mutate(across(where(is.numeric), ~na_if(., 99))) %>%
+  filter(relevance == 1)
+
+# As there are too few cases in JSVP and Young Greens to make meaningful statements
+# I will code them into the "mother" party.
+valid_data_filtered <- valid_data_filtered %>%
+  mutate(
+    party_group = case_when(
+      party %in% c(1, 2) ~ "SVP",  
+      party %in% c(3, 4) ~ "Greens",   
+      TRUE ~ as.character(party)         
+    )
+  )
+
 
 ```
 
@@ -103,12 +152,10 @@ Unnecessary meta-variables delivered by the API were removed, and articles categ
 
 For the qualitative coding of populist framing and party positioning, the Open AI API (version 4.0) [@openai_chatgpt_nodate] was used. Articles were evaluated based on a set of categories developed in collaboration with the model. This framework allows for systematic comparison of populist discourses across parties and enables the identification of distinct rhetorical patterns in environmental narratives.
 
-*Table 1: Category system*
-
 <div>
 
 | **Category** | **Code** | **Description** |
-|----------------------------|----------------|----------------------------|
+|---------------------------|------------------|---------------------------|
 | **Relevance** | 1 | Relevant: Article discusses Swiss environmental politics |
 |  | 0 | Not relevant |
 | **Political Party Mentioned** | 1 | SVP (Swiss People's Party) |
@@ -148,7 +195,7 @@ The first step in the process was the design of a prompt aimed at guiding Open A
 
 For each task and subtask, a corresponding code is provided. Additionally, a fallback code of 99 was introduced for instances where none of the categories apply, as the dataset still includes a significant number of irrelevant articles. This prompt was initially tested within the ChatGPT 4.0 interface using a clearly populist article about the SVP. To ensure robustness, a set of randomly selected articles was also tested to identify any issues with the prompt's functionality. In cases where the prompt performed poorly, these examples were highlighted under each task to clarify for the AI how to proceed. Once the prompt was performing sufficiently accurate, it was applied to the API for further testing.
 
-For the variable "party", in addition to the Green Party and the SVP, their respective youth partiex are also included. This was done to examine whether these younger branches might use even more populist language than their parent parties. Ultimately, these groups can be combined if necessary, so there is nothing to lose by including them separately. Additionally, the variable "support vs. opposition" is included to serve as a control, helping to determine whether populist language is more likely used in support of or in opposition to environmental policies. The variable "discourse" captures different styles ranging from pluralistic to populist, with an additional "neutral" category for articles written in a more balanced tone. The variables "elite" and "people" are only applied when an article is classified as rather or very populist, and they cover specific categories typically found in populist rhetoric.
+For the variable "party", in addition to the Green Party and the SVP, their respective youth parties are also included. This was done to examine whether these younger branches might use even more populist language than their parent parties. Ultimately, these groups can be combined if necessary, so there is nothing to lose by including them separately. Additionally, the variable "support vs. opposition" is included to serve as a control, helping to determine whether populist language is more likely used in support of or in opposition to environmental policies. The variable "discourse" captures different styles ranging from pluralistic to populist, with an additional "neutral" category for articles written in a more balanced tone. The variables "elite" and "people" are only applied when an article is classified as rather or very populist, and they cover specific categories typically found in populist rhetoric.
 
 #### **Testing Phase and Methodological Adjustments**
 
@@ -182,56 +229,15 @@ As the original sample of 2'500 articles was reduced to an actually analyzed sam
 
 These results suggest that some of the articles were likely too long or complex for the API to analyze effectively. However, given that also the distribution of publication years (before and after 2020) is similar across both groups, I conclude that the analysis still provides valuable and largely generalizable insights. Nonetheless, caution is advised when interpreting and generalizing the findings.
 
-```{r ref.label=knitr::all_labels()}
-#| echo: false
-#| eval: true
-setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues/01-Data")
-data_combined_cleaned <- read.csv("01-02-Data_Cleaned.csv", sep = ",", header = TRUE) # overall sample
-
-errors <- data_combined_cleaned   %>%
-  filter(is.na(relevance)) 
-
-summary_errors <- errors %>%
-  summarise(
-    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
-    `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
-    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
-    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
-  ) %>%
-  t() %>%
-  as.data.frame()
-
-# Summarize valid articles
-summary_correct <- data_combined_cleaned   %>%
-  filter(!is.na(relevance)) %>%
-  summarise(
-    `Mean Word Count` = mean(wordcount, na.rm = TRUE),
-    `Mean Character Count` = mean(char_count, na.rm = TRUE),
-    `Articles < 1000 Words` = sum(wordcount < 1000, na.rm = TRUE),
-    `Articles ≥ 1000 Words` = sum(wordcount >= 1000, na.rm = TRUE),
-    `Articles Before 2020` = sum(year < 2020, na.rm = TRUE),
-    `Articles From 2020 Onward` = sum(year >= 2020, na.rm = TRUE)
-  ) %>%
-  t() %>%
-  as.data.frame()
-
-# Combine summaries into one comparison table
-comparison_table <- cbind(summary_errors, summary_correct)
-colnames(comparison_table) <- c("Errors", "Valid Articles")
-comparison_table <- tibble::rownames_to_column(comparison_table, "Metric")
-```
 
 ```{r}
-#| echo: false
-#| eval: true
-
-comparison_table %>%
+t <- comparison_table %>%
   gt() %>%
   tab_header(
     title = "Comparison of Article Stats: Errors vs. Valid"
   )
+
+t
 
 ```
 
@@ -245,36 +251,11 @@ The average value on the discourse scale for the Greens was 2.11, while for the 
 
 *Figure 1* presents a boxplot illustrating the distribution of discourse styles by party. The Green Party's discourse centers around a value of 2, indicating a generally pluralistic tone, with a few outliers. In contrast, the SVP shows a concentration of values between 4 and 5, pointing to a predominantly populist discourse style, though a few outliers fall closer to the pluralistic end of the scale.
 
-*Figure 1: Boxplot for discourse style by party*
+```{r setup-plot, include=FALSE}
 
-```{r ref.label=knitr::all_labels()}
-#| echo: false
-#| eval: true
-setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
-valid_data <- read.csv("01-Data/01-03-Data_Cleaned_Valid.csv", sep = ",", header = TRUE) 
-
-valid_data_filtered <- valid_data %>%
-  mutate(across(where(is.numeric), ~na_if(., 99))) %>%
-  filter(relevance == 1)
-
-# As there are too few cases in JSVP and Young Greens to make meaningful statements
-# I will code them into the "mother" party.
-valid_data_filtered <- valid_data_filtered %>%
-  mutate(
-    party_group = case_when(
-      party %in% c(1, 2) ~ "SVP",  
-      party %in% c(3, 4) ~ "Greens",   
-      TRUE ~ as.character(party)         
-    )
-  )
-```
-
-```{r}
-#| echo: false
-#| eval: true
 
 # Boxplot
-ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y = discourse)) +
+boxplot <- ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y = discourse)) +
   geom_boxplot(aes(fill = party_group), 
                color = "black", 
                outlier.shape = 16, 
@@ -285,22 +266,26 @@ ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y
        x = "Party Group") +
   theme_minimal() +
   theme(
-    text = element_text(size = 12), # Setzt die Textgröße auf 12
-    axis.text.x = element_text(angle = 45, hjust = 1), # Dreht die x-Achsen-Beschriftungen um 45 Grad
-    axis.title = element_text(size = 14), # Größere Achsentitel
-    plot.title = element_text(hjust = 0.5, size = 16), # Zentriert den Titel und setzt die Größe
-    legend.position = "none" # Entfernt die Legende (falls nicht benötigt)
+    text = element_text(size = 12),
+    axis.text.x = element_text(angle = 45, hjust = 1), 
+    axis.title = element_text(size = 14), 
+    plot.title = element_text(hjust = 0.5, size = 16),  
+    legend.position = "none" 
   )
+
+```
+
+```{r fig-boxplot, echo=FALSE, fig.cap="Box plot for discourse style by party"}
+boxplot
+
 ```
 
 To examine whether the observed difference in populist discourse between party groups persists when controlling for support or opposition to environmental policy, a logistic regression analysis was conducted. For this purpose, a binary variable "populistic" was created: it takes the value 1 if the article was classified as using either *rather populist* or *very populist* language, and 0 if the discourse was *neutral*, *rather pluralistic*, or *very pluralistic*. This binary variable served as the dependent variable in the model.
 
-The independent variable was party affiliation, grouped into two categories: Greens (including Young Greens) and SVP (including JSVP), with the Greens set as the reference category. In addition, the model controlled for whether the article supported or opposed environmental policy, in order to isolate the effect of party affiliation from any bias related to the article's stance. The results of the logistic regression models are presented in *Table 2.*
+The independent variable was party affiliation, grouped into two categories: Greens (including Young Greens) and SVP (including JSVP), with the Greens set as the reference category. In addition, the model controlled for whether the article supported or opposed environmental policy, in order to isolate the effect of party affiliation from any bias related to the article's stance. The results of the logistic regression models are presented in *Table 3.*
 
-```{r ref.label=knitr::all_labels()}
- #| echo: false 
- #| eval: true
-
+```{r setup-model, include=FALSE}
+ 
 valid_data_filtered <- valid_data_filtered %>%
   mutate(populistic = ifelse(discourse %in% c(4, 5), 1, 0))
 
@@ -317,40 +302,46 @@ valid_data_filtered <- valid_data_filtered %>%
     
   )
 
+
+```
+
+```{r tab-model, echo=FALSE, fig.cap="Logistic Regression: Populist Rhetoric in Media", fig.keep="last"}
+
 # Logit Model
 logit_model <- glm(populistic ~ party_group + support_dummy, data = valid_data_filtered, family = "binomial") 
-exp(coef(logit_model))
+
+logit_table <- tidy(logit_model, conf.int = TRUE) %>%
+  mutate(term = case_when(
+    term == "(Intercept)" ~ "Intercept",
+    term == "party_groupSVP" ~ "SVP (ref: Greens)",
+    term == "support_dummy" ~ "Environmental Policy Support (1 = support)",
+    TRUE ~ term
+  )) %>%
+  select(term, estimate, std.error, conf.low, conf.high, p.value) %>%
+  rename(
+    Term = term,
+    Estimate = estimate,
+    `Std. Error` = std.error,
+    `CI Low` = conf.low,
+    `CI High` = conf.high,
+    `p-value` = p.value
+  )
+
+logit_table %>%
+  kbl(caption = "Logistic Regression: Populist Rhetoric in Media",
+      format = "latex", booktabs = TRUE, digits = 3) %>%
+  kable_styling(latex_options = c("hold_position", "striped"))
 
 ```
 
-*Table 2: Logistic Regression Results*
+The regression results indicate that the SVP has 8.9 times (e^2.18) higher odds of using populist rhetoric in mainstream media articles about environmental politics compared to the Green Party, controlling for support and other model factors. Furthermore, if an article supports environmental issues, the odds of using populist discourse decrease by approximately 91% (100-e^2.5). These findings do not support the null hypothesis, which stated that there is no difference in discourse between the parties.
 
-```{r}
-#| echo: false
-#| eval: true
 
-stargazer(logit_model,
-          type = "latex",
-          title = "Logistic Regression: Populist Discourse",
-          dep.var.labels = "Populistic (1 = populist)",
-          covariate.labels = c("SVP", "Support for Environment"),
-          omit.stat = c("ll", "aic"),
-          no.space = TRUE,
-          star.cutoffs = c(0.05, 0.01, 0.001))
-
-```
-
-The regression results indicate that the SVP has 8.9 times higher odds of using populist rhetoric in mainstream media articles about environmental politics compared to the Green Party, controlling for support and other model factors. Furthermore, if an article supports environmental issues, the odds of using populist discourse decrease by approximately 91%. These findings do not support the null hypothesis, which stated that there is no difference in discourse between the parties.
-
-Of the 165 items that used somewhat or very populist discourse, all 165 could be associated with an elite group, while only 41 could be linked to a specific group of people. Given the relatively small number of observations, especially regarding "people", these results are presented descriptively in *Figure 2* and *Figure 3.* For the Green Party, no distinct “people” rhetoric was identified. For the SVP, on the other hand, references to the people were diverse and included farmers, rural communities, the general Swiss population, and workers. Regarding the concept of elites, the Greens only referred to intellectuals, although this observation is based on only three cases and should therefore be interpreted with caution. For the SVP, elites were identified primarily as government officials and politicians, but they also included, in some cases, businesses, intellectuals, NGOs, international organizations and the media.
-
-```{r ref.label=knitr::all_labels()}
- #| echo: false 
- #| eval: true
+```{r setup-mcaplot, include=FALSE}
  
 # Prepare data
 mca_data <- valid_data_filtered %>%
-  filter(!is.na(support_dummy) & !is.na(party_group)) %>%  # Zeilen mit NA-Werten entfernen
+  filter(!is.na(support_dummy) & !is.na(party_group)) %>%  
   mutate(
     support_factor = case_when(
       support == 2 ~ "Oppose",  
@@ -389,16 +380,9 @@ mca_data <- valid_data_filtered %>%
   ) %>%
   select(party_group, support_factor, discourse_factor, elite_factor, people_factor) %>%
   mutate(across(everything(), as.factor))
- 
-
-```
-
-```{r}
-#| echo: false
-#| eval: true
 
 # People vs. Elite
-mca_data %>%
+people_graph <- mca_data %>%
   filter(discourse_factor %in% c("rather populistic", "very populistic"),
          !is.na(people_factor)) %>%
   count(party_group, people_factor, elite_factor) %>%
@@ -406,8 +390,8 @@ mca_data %>%
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Who is being addressed in populist discourse?",
        y = "Count", x = "Party", fill = "People")
-
-mca_data %>%
+ 
+elite_graph <- mca_data %>%
   filter(discourse_factor %in% c("rather populistic", "very populistic"),
          !is.na(elite_factor)) %>%
   count(party_group, people_factor, elite_factor) %>%
@@ -416,20 +400,26 @@ mca_data %>%
   labs(title = "Who is seen as the Elite?",
        y = "Count", x = "Party", fill = "Elite")
 
+```
+```{r fig-people, echo=FALSE, fig.cap="Who is being addressed in populist discourse", fig.keep="last"}
+people_graph
+
+```
+Of the 165 items that used somewhat or very populist discourse, all 165 could be associated with an elite group, while only 41 could be linked to a specific group of people. Given the relatively small number of observations, especially regarding "people", these results are presented descriptively in *Figure 2* and *Figure 3.* For the Green Party, no distinct “people” rhetoric was identified. For the SVP, on the other hand, references to the people were diverse and included farmers, rural communities, the general Swiss population, and workers. Regarding the concept of elites, the Greens only referred to intellectuals, although this observation is based on only three cases and should therefore be interpreted with caution. For the SVP, elites were identified primarily as government officials and politicians, but they also included, in some cases, businesses, intellectuals, NGOs, international organizations and the media.
+
+```{r fig-elite, echo=FALSE, fig.cap="Who is seen as elite", fig.keep="last"}
+elite_graph 
 
 ```
 
 Finally, a multiple correspondence analysis (MCA) was conducted to explore and visualize the underlying relationships among categorical variables related to populist discourse, party affiliation, and environmental support. This analysis shows associations between different dimensions of discourse, particularly how certain types of discourse align with specific parties or positions on environmental issues. The results of the MCA are presented in *Figure 4.*
 
-```{r}
-#| echo: false
-#| eval: true
-
+```{r setup-mcaresult, include=FALSE}
 # MCA 
 mca_result <- MCA(mca_data, graph = FALSE)
 
 # Plot
-fviz_mca_biplot(mca_result,
+mca_plot <- fviz_mca_biplot(mca_result,
                 repel = TRUE,
                 ggtheme = theme_minimal(),
                 label = "all",
@@ -439,6 +429,10 @@ fviz_mca_biplot(mca_result,
     text = element_text(color = "black")  
   )
 
+```
+
+```{r fig-mca, echo=FALSE, fig.cap="MCA Plot", fig.keep="last"}
+mca_plot
 ```
 
 The multiple correspondence analysis reveals a clear separation between the Greens and the SVP in terms of their discourse characteristics and associations. On the left side, the Green party is associated with pluralistic discourse and support for environmental politics, with very limited linkage to populist elements or “people” and “elite” group references. On the right side, the SVP clusters with rather or very populist discourse, opposition to environmental politics, and strong associations with the specific “people” and elite groups.
