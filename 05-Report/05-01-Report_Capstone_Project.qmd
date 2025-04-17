@@ -152,6 +152,8 @@ Unnecessary meta-variables delivered by the API were removed, and articles categ
 
 For the qualitative coding of populist framing and party positioning, the Open AI API (version 4.0) [@openai_chatgpt_nodate] was used. Articles were evaluated based on a set of categories developed in collaboration with the model. This framework allows for systematic comparison of populist discourses across parties and enables the identification of distinct rhetorical patterns in environmental narratives.
 
+*Table 3.1: Category system*
+
 <div>
 
 | **Category** | **Code** | **Description** |
@@ -225,10 +227,11 @@ One notable exception involved an article written by an SVP National Council mem
 
 #### Analysis of API errors
 
-As the original sample of 2'500 articles was reduced to an actually analyzed sample of 2'144 articles, it is important to investigate the reasons behind this reduction. Understanding the cause is crucial, as it may limit the generalizability of the results to the full population. Therefore, I conducted an analysis of key indicators comparing the error sample with the valid sample, as presented in *Table 2*. A striking difference is the average word count, which is nearly twice as high in the error sample compared to the valid one. The same pattern applies to the average number of characters. In the error sample, 83% of the articles contain more than 1'000 words, while in the valid sample this figure is 15%.
+As the original sample of 2'500 articles was reduced to an actually analyzed sample of 2'144 articles, it is important to investigate the reasons behind this reduction. Understanding the cause is crucial, as it may limit the generalizability of the results to the full population. Therefore, I conducted an analysis of key indicators comparing the error sample with the valid sample, as presented in *Table 4.2*. A striking difference is the average word count, which is nearly twice as high in the error sample compared to the valid one. The same pattern applies to the average number of characters. In the error sample, 83% of the articles contain more than 1'000 words, while in the valid sample this figure is 15%.
 
 These results suggest that some of the articles were likely too long or complex for the API to analyze effectively. However, given that also the distribution of publication years (before and after 2020) is similar across both groups, I conclude that the analysis still provides valuable and largely generalizable insights. Nonetheless, caution is advised when interpreting and generalizing the findings.
 
+*Table 3.2: Comparison of Article Stats: Errors vs. Valid*
 
 ```{r}
 t <- comparison_table %>%
@@ -249,7 +252,7 @@ Out of the 665 relevant articles, 187 primarily discussed the Green Party, 21 fo
 
 The average value on the discourse scale for the Greens was 2.11, while for the SVP it was 4.24. This scale ranges from 1 (very pluralistic) to 5 (very populist), with 3 representing a neutral tone. These results indicate that the SVP tends to use significantly more populist language compared to the Greens, who lean more toward pluralistic discourse. A t-test for mean differences confirms this with a p-value close to 0, providing statistical evidence for a significant difference in populist discourse between the two groups.
 
-*Figure 1* presents a boxplot illustrating the distribution of discourse styles by party. The Green Party's discourse centers around a value of 2, indicating a generally pluralistic tone, with a few outliers. In contrast, the SVP shows a concentration of values between 4 and 5, pointing to a predominantly populist discourse style, though a few outliers fall closer to the pluralistic end of the scale.
+*Figure 4.1* presents a boxplot illustrating the distribution of discourse styles by party. The Green Party's discourse centers around a value of 2, indicating a generally pluralistic tone, with a few outliers. In contrast, the SVP shows a concentration of values between 4 and 5, pointing to a predominantly populist discourse style, though a few outliers fall closer to the pluralistic end of the scale.
 
 ```{r setup-plot, include=FALSE}
 
@@ -282,7 +285,7 @@ boxplot
 
 To examine whether the observed difference in populist discourse between party groups persists when controlling for support or opposition to environmental policy, a logistic regression analysis was conducted. For this purpose, a binary variable "populistic" was created: it takes the value 1 if the article was classified as using either *rather populist* or *very populist* language, and 0 if the discourse was *neutral*, *rather pluralistic*, or *very pluralistic*. This binary variable served as the dependent variable in the model.
 
-The independent variable was party affiliation, grouped into two categories: Greens (including Young Greens) and SVP (including JSVP), with the Greens set as the reference category. In addition, the model controlled for whether the article supported or opposed environmental policy, in order to isolate the effect of party affiliation from any bias related to the article's stance. The results of the logistic regression models are presented in *Table 3.*
+The independent variable was party affiliation, grouped into two categories: Greens (including Young Greens) and SVP (including JSVP), with the Greens set as the reference category. In addition, the model controlled for whether the article supported or opposed environmental policy, in order to isolate the effect of party affiliation from any bias related to the article's stance. The results of the logistic regression models are presented in *Table 4.1.*
 
 ```{r setup-model, include=FALSE}
  
@@ -334,8 +337,7 @@ logit_table %>%
 
 ```
 
-The regression results indicate that the SVP has 8.9 times (e^2.18) higher odds of using populist rhetoric in mainstream media articles about environmental politics compared to the Green Party, controlling for support and other model factors. Furthermore, if an article supports environmental issues, the odds of using populist discourse decrease by approximately 91% (100-e^2.5). These findings do not support the null hypothesis, which stated that there is no difference in discourse between the parties.
-
+The regression results indicate that the SVP has 8.9 times (e\^2.18) higher odds of using populist rhetoric in mainstream media articles about environmental politics compared to the Green Party, controlling for support and other model factors. Furthermore, if an article supports environmental issues, the odds of using populist discourse decrease by approximately 91% (100-e\^2.5). These findings do not support the null hypothesis, which stated that there is no difference in discourse between the parties.
 
 ```{r setup-mcaplot, include=FALSE}
  
@@ -401,18 +403,20 @@ elite_graph <- mca_data %>%
        y = "Count", x = "Party", fill = "Elite")
 
 ```
+
 ```{r fig-people, echo=FALSE, fig.cap="Who is being addressed in populist discourse", fig.keep="last"}
 people_graph
 
 ```
-Of the 165 items that used somewhat or very populist discourse, all 165 could be associated with an elite group, while only 41 could be linked to a specific group of people. Given the relatively small number of observations, especially regarding "people", these results are presented descriptively in *Figure 2* and *Figure 3.* For the Green Party, no distinct “people” rhetoric was identified. For the SVP, on the other hand, references to the people were diverse and included farmers, rural communities, the general Swiss population, and workers. Regarding the concept of elites, the Greens only referred to intellectuals, although this observation is based on only three cases and should therefore be interpreted with caution. For the SVP, elites were identified primarily as government officials and politicians, but they also included, in some cases, businesses, intellectuals, NGOs, international organizations and the media.
+
+Of the 165 items that used somewhat or very populist discourse, all 165 could be associated with an elite group, while only 41 could be linked to a specific group of people. Given the relatively small number of observations, especially regarding "people", these results are presented descriptively in *Figure 4.2* and *Figure 4.3.* For the Green Party, no distinct “people” rhetoric was identified. For the SVP, on the other hand, references to the people were diverse and included farmers, rural communities, the general Swiss population, and workers. Regarding the concept of elites, the Greens only referred to intellectuals, although this observation is based on only three cases and should therefore be interpreted with caution. For the SVP, elites were identified primarily as government officials and politicians, but they also included, in some cases, businesses, intellectuals, NGOs, international organizations and the media.
 
 ```{r fig-elite, echo=FALSE, fig.cap="Who is seen as elite", fig.keep="last"}
 elite_graph 
 
 ```
 
-Finally, a multiple correspondence analysis (MCA) was conducted to explore and visualize the underlying relationships among categorical variables related to populist discourse, party affiliation, and environmental support. This analysis shows associations between different dimensions of discourse, particularly how certain types of discourse align with specific parties or positions on environmental issues. The results of the MCA are presented in *Figure 4.*
+Finally, a multiple correspondence analysis (MCA) was conducted to explore and visualize the underlying relationships among categorical variables related to populist discourse, party affiliation, and environmental support. This analysis shows associations between different dimensions of discourse, particularly how certain types of discourse align with specific parties or positions on environmental issues. The results of the MCA are presented in *Figure 4.4.*
 
 ```{r setup-mcaresult, include=FALSE}
 # MCA 
@@ -437,11 +441,21 @@ mca_plot
 
 The multiple correspondence analysis reveals a clear separation between the Greens and the SVP in terms of their discourse characteristics and associations. On the left side, the Green party is associated with pluralistic discourse and support for environmental politics, with very limited linkage to populist elements or “people” and “elite” group references. On the right side, the SVP clusters with rather or very populist discourse, opposition to environmental politics, and strong associations with the specific “people” and elite groups.
 
-# Conclusion & Discussion
+# Conclusion & Reflexion
 
-What have we learned from this work (at best: and what not)? What would be next steps in this research?
+This research project aimed to develop a category system that could be used, via an AI API, to code large volumes of media text and thereby quantitatively analyze a qualitative research question: how do the SVP and the Green Party express populist discourse in the context of environmental politics within Swiss mainstream media? The project was exploratory in nature and functioned as a first attempt. It proceeded step-by-step, with continuous quality checks and trial-and-error approaches, in order to eventually arrive at the desired data set. Initially, a large amount of data was collected using the Swissdox API, which provides access to Swiss media articles. In a second step, these texts were filtered and coded using AI. The original objective of the project was fulfilled: the relevant data was collected and coded. However, there are several important takeaways and, especially, limitations that affect the validity of the results, particularly concerning the question of party-specific populist discourse.
 
-Word count: XX
+First, the OpenAI API encountered capacity issues, resulting in approximately 8% of responses failing. These errors could not be corrected or re-coded, which limits the final sample and thus affects generalizability and external validity.
+
+Second, in a manual quality check, I personally coded 2 out of 20 cases differently than the AI. This raises concerns about the reliability and consistency of AI-driven content analysis. Furthermore, the original sub-question, how each party (SVP and the Greens) defines “the elite” and “the people”, could only be answered descriptively due to the small number of relevant cases.It also remains unclear whether the AI might be biased itself. Given that the SVP is frequently associated with populism in public discourse, while the Greens are generally not, it is possible that such associations influenced the AI’s coding decisions. This is a crucial aspect that would require more systematic examination in future research.
+
+All in all, the main research question could be answered and the findings align with previous literature: in Switzerland, populism is more strongly associated with the political right than the left, with the SVP being the most prominent carrier of populist narratives. The party effectively utilizes “the people vs. the elite” framing in media discourse, whereas the Greens tend to adopt a more pluralistic tone.
+
+This analysis offers wide opportunity for expansion. For instance, instead of media articles, it would be particularly interesting to examine social media posts during election campaigns or before referendums. In such contexts, discourse often becomes even more direct and emotionally charged, targeting the electorate in more explicit ways.
+
+On a personal note, this project allowed me to contribute a valuable methodological approach to academic research, especially in terms of large-scale text analysis. It has also laid the foundation for my upcoming master’s thesis. The integration of the OpenAI API proved to be highly useful, and learning how to implement and use such a tool technically is extremely valuable, especially as research continues to evolve alongside digital tools.
+
+*Word count: 4131*
 
 # Bibliography {.unnumbered}
 
