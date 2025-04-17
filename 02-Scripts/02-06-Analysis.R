@@ -5,6 +5,10 @@ library(knitr)
 library(stargazer)
 library(gt)
 library(openxlsx)
+library(FactoMineR)
+library(factoextra)
+library(dplyr)
+
 
 # Load data
 setwd("/Users/alessiarainone/Desktop/Populist-Narratives-on-Environmental-Issues")
@@ -67,17 +71,27 @@ valid_data_filtered <- valid_data_filtered %>%
       support == 1 ~ 1,
       support == 2 ~ 0,
       support == 3 ~ NA_real_,
-      TRUE ~ NA_real_  # falls andere Werte vorkommen
+      TRUE ~ NA_real_ 
     ),
-    discourse_factor = as.factor(discourse)
+    populistic = ifelse(discourse %in% c(4, 5), 1, 0),
+    pluralistic = ifelse(discourse %in% c(1, 2), 1, 0),
+    
   )
 
-library(MASS)
-model <- polr(discourse_factor ~ party_group + support_dummy, data = valid_data_filtered, method = "logistic")
-summary(model)
-
-model <- lm(discourse ~ party_group + support_dummy, data = valid_data_filtered)
-summary(model)
-
+# Logit Model
 glm(populistic ~ party_group + support_dummy, data = valid_data_filtered, family = "binomial") %>%
   summary()
+
+# Populist Discourse: Elite vs. People
+pop_data <- valid_data_filtered %>%
+  filter(discourse %in% c(4, 5),
+         !is.na(people)|!is.na(elite)) %>%
+  mutate(people = as.factor(people),
+         elite = as.factor(elite))
+
+
+# MCA 
+mca_data <- valid_data_filtered %>%
+  select(elite) 
+
+
