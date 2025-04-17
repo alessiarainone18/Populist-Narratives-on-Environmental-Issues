@@ -20,7 +20,7 @@ valid_data_filtered <- valid_data %>%
   filter(relevance == 1)
 
 # As there are too few cases in JSVP and Young Greens to make meaningful statements
-# I will code them into the real party.
+# I will code them into the "mother" party.
 valid_data_filtered <- valid_data_filtered %>%
   mutate(
     party_group = case_when(
@@ -32,15 +32,31 @@ valid_data_filtered <- valid_data_filtered %>%
 
 table(valid_data_filtered$party_group, valid_data_filtered$discourse)
 
-valid_data_filtered %>%
+valid_data_filtered %>% filter(!is.na(discourse)) %>%
   group_by(party_group) %>%
   summarise(mean_discourse = mean(discourse, na.rm = TRUE))
 
 
-ggplot(valid_data_filtered, aes(x = party_group, y = discourse)) +
-  geom_boxplot() +
-  labs(title = "Discourse Style by party", y = "Discourse (1=pluralistic ... 5=populistic")
+# Boxplot
+ggplot(valid_data_filtered %>% filter(!is.na(discourse)), aes(x = party_group, y = discourse)) +
+  geom_boxplot(aes(fill = party_group), 
+               color = "black", 
+               outlier.shape = 16, 
+               outlier.colour = "red", 
+               outlier.size = 3) +
+  labs(title = "Discourse Style by Party", 
+       y = "Discourse (1=pluralistic ... 5=populistic)", 
+       x = "Party Group") +
+  theme_minimal() +
+  theme(
+    text = element_text(size = 12), # Setzt die Textgröße auf 12
+    axis.text.x = element_text(angle = 45, hjust = 1), # Dreht die x-Achsen-Beschriftungen um 45 Grad
+    axis.title = element_text(size = 14), # Größere Achsentitel
+    plot.title = element_text(hjust = 0.5, size = 16), # Zentriert den Titel und setzt die Größe
+    legend.position = "none" # Entfernt die Legende (falls nicht benötigt)
+  )
 
+# People vs. Elite
 valid_data_filtered %>%
   filter(discourse %in% c(4, 5),
          !is.na(people)) %>%
@@ -82,16 +98,63 @@ valid_data_filtered <- valid_data_filtered %>%
 glm(populistic ~ party_group + support_dummy, data = valid_data_filtered, family = "binomial") %>%
   summary()
 
-# Populist Discourse: Elite vs. People
-pop_data <- valid_data_filtered %>%
-  filter(discourse %in% c(4, 5),
-         !is.na(people)|!is.na(elite)) %>%
-  mutate(people = as.factor(people),
-         elite = as.factor(elite))
+
+
+### MCA 
+# Prepare data
+mca_data <- valid_data_filtered %>%
+  filter(!is.na(support_dummy) & !is.na(party_group)) %>%  # Zeilen mit NA-Werten entfernen
+  mutate(
+    support_factor = case_when(
+      support == 2 ~ "Oppose",  
+      support == 1 ~ "Support",
+      TRUE ~ NA_character_  
+    ),
+    
+    discourse_factor = case_when(
+      discourse == 1 ~ "very pluralistic",
+      discourse == 2 ~ "rather pluralistic",
+      discourse == 3 ~ "neutral",
+      discourse == 4 ~ "rather populistic",
+      discourse == 5 ~ "very populistic",
+      TRUE ~ NA_character_  
+    ),
+
+    elite_factor = case_when(
+      elite == 1 ~ "Elite = Government/politicians",
+      elite == 2 ~ "Elite = Corporations/business",
+      elite == 3 ~ "Elite = Media",
+      elite == 4 ~ "Elite = Intellectuals",
+      elite == 5 ~ "Elite = International organisations",
+      elite == 6 ~ "Elite = NGOs",
+      TRUE ~ NA_character_  
+    ),
+    
+    people_factor = case_when(
+      people == 1 ~ "People = Swiss population",
+      people == 2 ~ "People = Workers",
+      people == 3 ~ "People = Rural communities",
+      people == 4 ~ "People = Traditionalists",
+      people == 5 ~ "People = Small businesses",
+      people == 6 ~ "People = Farmers",
+      TRUE ~ NA_character_  
+    )
+  ) %>%
+  select(party_group, support_factor, discourse_factor, elite_factor, people_factor) %>%
+  mutate(across(everything(), as.factor))
+ 
 
 
 # MCA 
-mca_data <- valid_data_filtered %>%
-  select(elite) 
+mca_result <- MCA(mca_data, graph = FALSE)
 
-
+# Plot
+fviz_mca_biplot(mca_result,
+                repel = TRUE,
+                ggtheme = theme_minimal(),
+                label = "all",
+                habillage = mca_data$party_group) +
+  scale_color_manual(values = c("SVP" = "lightblue", "Greens" = "lightgreen")) +
+  theme(
+    text = element_text(color = "black")  
+  )
